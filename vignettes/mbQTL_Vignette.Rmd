@@ -1,0 +1,113 @@
+---
+title: "mbQTL_Vignette"
+date: "2023-01-06"
+author: "Mercedeh Movassagh"
+package: mbQTL
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MbQTL_Vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r style, echo=FALSE, results='asis'}
+BiocStyle::markdown()
+```
+
+```{r setup}
+knitr::opts_chunk$set(
+  dpi=300,
+  warning = FALSE,
+  collapse = TRUE,
+  error = FALSE,
+  comment = "#>",
+  echo=TRUE
+)
+library(mbQTL)
+library(tidyr)
+data("SnpFile")
+data("microbeAbund")
+data("CovFile")
+
+doctype <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+# Introduction
+
+mbQTL is a statistical package for identifying significant taxa(microbial), snp(genotype) relationships across large sample sets. The package measures this relationship using three different approaches. A) linear regression analysis which uses core MatrixEQTL model. B) rho estimation for correlation of taxa and SNP, which is a novel method of estimating rho values after R value of taxa-taxa is estimated then adjusted for association of taxa-SNP. Using this method various taxa-SNP associations can be estimated simultaneously, and linkage disequilibrium (LD) snps and regions can be identified in terms of presence and their associations with snps. C) Utilizing Logistic regression analysis, we estimate the relationship of one snp and one taxa across the sample cohort but simultaneously this could be estimated for all samples and proper statistics is produced from these regressions. Appropriate plots are generated for all three methods utilized in this vignette and are part of the package to simplify visualization.
+
+
+## Data upload- mbQTL accepts data in dataframe or table formats
+
+The datasets used for this vigette are all simulated and are not factual. The Taxa_table_MVP_cor.txt and SNP_table_MVP_cor.txt are used in all three sections mentioned above and the covariates.txt file is used for section A)linear regression.
+
+The input file format for SNP_table_MVP_cor.txt should be colnames with SNP names/locations/rs_numbers and rownames needs to be sample number. For the Taxa_table_MVP_cor.txt the colnames is the microbe name and the row name is th sample number and finally for the covariates.txt file the colnames need to be sample names and the rownames need to be the covariates. Please ensure all 3 files are matching in terms of sample number and are appropriately formatted to avoid errors in your analysis.
+The data can be downloaded from  https://doi.org/10.5281/zenodo.637171.
+
+#Import data
+```{r eval=TRUE, echo=TRUE}
+#Import data from Zenodo
+
+```
+
+#A) lineare regression
+
+Linear regression analysis to identify significant association between taxa and SNPs across large sample sized. P values FDRs, Pvalue histogram plots and QQplots are provided for various taxa and SNP regression analysis performed. microbeAbund is the taxa abundance file, SnpFile us file across samples (0,1,2  (reference, hetrozygous and alternate genotype).
+
+```{r eval=TRUE, echo=TRUE}
+#perform linear regression analysis between taxa and snps across samples and
+#produce a dataframe of results.
+LinearAnalysisTaxaSNP<-linearTaxaSnp(microbeAbund,SnpFile,Covariate=CovFile)
+```
+
+```{r eval=TRUE, echo=TRUE, fig.width = 4, fig.height=4, out.width="90%", dpi=300, fig.align="center"}
+##Create a histogram of P values across all samples
+Hist_Pvalue_LM(LinearAnalysisTaxaSNP)
+#Create a QQPlot of expected versus estimated P value
+qqPlotLm(microbeAbund,SnpFile,Covariate=CovFile)
+```
+
+#B) Correlation analysis (rho estimation)
+
+Estimate taxa-taxa correlation (microbeAbund (taxa abundancefile)) and estimate R (Strength of the relationship between taxa x and y). In other words we estimate Goodness of fits, as a measure of a feature’s association with host genetics (Significant SNPs) association with taxa (matching 16S results)
+
+```{r eval=TRUE, echo=TRUE}
+correlationMicrobes<-coringTaxa(microbeAbund)
+#Estimate taxa SNP - taxa correlation and estimate R2 (To what extent variance in one taxa explains the variance in snp)
+one_rs_id<-all_to_all_product(SnpFile,microbeAbund,"chr1.171282963_T") #For a specific snp
+#Now estimate rho vale 
+for_all_rsids<-all_to_all_product(SnpFile,microbeAbund) #for all snps
+#Estimate rho value for SNP - taxa relationship
+taxa_SNP_Cor<-TaxaSnpCor(for_all_rsids,correlationMicrobes) #Estimate rho for all combinations of snp-taxa and taxa-taxa relationships
+taxa_SNP_Cor_lim<-TaxaSnpCor(for_all_rsids,correlationMicrobes,probs = c(0.0001, 0.9999))
+ # estimate for the top rho values produced
+```
+
+```{r eval=TRUE, echo=TRUE, fig.width = 9, fig.height=5, out.width="90%", dpi=300, fig.align="center"}
+##Draw heatmap of rho estimates "taxa_SNP_Cor_lim" is the output of TaxaSnpCor(). You can use other pheatmap settings for extra annotation
+mbQtlCorHeatmap(taxa_SNP_Cor_lim,fontsize_col=5,fontsize_row=7)
+```
+#C) Logistic Regression analysis
+
+SNPs and then Genus/species (categorical(presence/absence)) as expression. For this we need to binarize out taxa abundance file based on a cutoff to a zero or one or presence or absence format. 
+
+```{r eval=TRUE, echo=TRUE}
+#perform Logistic regression analysis between taxa and snps across samples
+#microbeAbund is the microbe abundance file and SnpFile is the snp file (0,1,2) values
+log_link_resA<-LogRegSNPsTaxa(microbeAbund,SnpFile)
+#Perform Logistic regression for specific microbe
+log_link_resB<-LogRegSNPsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus"))
+```
+
+```{r eval=TRUE, echo=TRUE, fig.width = 5, fig.height=2, out.width="90%", dpi=300, fig.align="center"}
+#Create a barplot with the specific rsID, and microbe of interest, including the genotype information for the reference versus alternate versus hetrozygous alleles and and presence absecence of microbe of interest.
+Logit_plot<-LogitPlotSnpTaxa(microbeAbund, SnpFile, selectmicrobe = "Neisseria", rsID="chr2.241072116_A", ref="GG", alt="AA",het="AG")
+Logit_plot
+```
