@@ -7,10 +7,6 @@
 #' @import broom
 NULL
 
-#Correlation_Regression
-#microbeAbund<-read.table("~/Desktop/Taxa_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
-#microbeAbund <- downloadMbQTLFile("https://zenodo.org/record/4615670/files/Taxa_table_MVP_cor.txt.gz")
-
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
 #'  coringTaxa creates correlation dataframe for taxa
 #'
@@ -50,18 +46,18 @@ coringTaxa <- function(microbeAbund) {
 #SnpFile <- downloadSNPFile("https://zenodo.org/record/4615670/files/Human_miRanda.txt.gz")
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  RegSNP creates a dataframe of parsed long snp files
+#'  RegSnp creates a dataframe of parsed long snp files
 #'
 #' This internal function takes the orginal snp dataframe and retruns a long parsed snp dataframe
 #' @param SnpFile the snp file (rownames is sample number and colnames is the snps)
 #' @return A long parsed datframe of snps
 #' @keywords snp parsed long
 #' @examples
-#' x <-RegSNP(SnpFile)
+#' x <-RegSnp(SnpFile)
 
 
 #function to make the long snp format
-RegSNP<-function(SnpFile,microbeAbund){
+RegSnp<-function(SnpFile,microbeAbund){
   SnpFilt<-rownames(microbeAbund)
   SnpAss_filt<-SnpFile[rownames(SnpFile) %in% SnpFilt,]
   mycor <- cor(cbind(SnpAss_filt, microbeAbund))
@@ -80,7 +76,7 @@ RegSNP<-function(SnpFile,microbeAbund){
 }
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  all_to_all_product creates a dataframe of snp and taxa correlations
+#'  allToAllProduct creates a dataframe of snp and taxa correlations
 #'
 #' This internal function takes the original snp dataframe and returns a long parsed snp dataframe
 #' @param SnpFile the snp file (rownames is sample number and colnames is the snps)
@@ -90,11 +86,11 @@ RegSNP<-function(SnpFile,microbeAbund){
 #' @keywords snptaxa Correlation
 #' @export
 #' @examples
-#' x <-all_to_all_product(SnpFile,microbeAbund,"chr1.171282963_T")
+#' x <-allToAllProduct(SnpFile,microbeAbund,"chr1.171282963_T")
 
 #function to make R2
-all_to_all_product <- function(SnpFile,microbeAbund, rsID = NULL) {
-  r2_long<-RegSNP(SnpFile, microbeAbund)
+allToAllProduct <- function(SnpFile,microbeAbund, rsID = NULL) {
+  r2_long<-RegSnp(SnpFile, microbeAbund)
   #Define function apply_product
   #Function to solve on one of the items
    apply_product<-function(rsID){
@@ -121,25 +117,25 @@ all_to_all_product <- function(SnpFile,microbeAbund, rsID = NULL) {
   }
 }
 
-#one_rs_id<-all_to_all_product(SnpFile,microbeAbund,"chr1.171282963_T")
-#for_all_rsids<-all_to_all_product(SnpFile,microbeAbund)
+#one_rs_id<-allToAllProduct(SnpFile,microbeAbund,"chr1.171282963_T")
+#for_all_rsids<-allToAllProduct(SnpFile,microbeAbund)
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  TaxaSnpCor for estimation of the rho value between snp, taxa correlations across datasets
+#'  taxaSnpCor for estimation of the rho value between snp, taxa correlations across datasets
 #'
 #' This function produces a log heatmap +1 of the correlation rho values across snp, taxa dataframe.
 #' @param for_all_rsids A dataframe result of correlation analysis between the snps and taxa dataframe,
-#'  an output of all_to_all_product() function.
+#'  an output of allToAllProduct() function.
 #' @param correlationMicrobes A dataframe of correlation between coringTaxa() function.
 #' @param probs Default is NULL if other that all rho values are wanted the value can be subseted using c(x,y).
 #' @return A data frame of correlations between taxa
 #' @export
 #' @keywords rho estimation
 #' @examples
-#' x <-TaxaSnpCor(for_all_rsids,correlationMicrobes)
+#' x <-taxaSnpCor(for_all_rsids,correlationMicrobes)
 
-TaxaSnpCor<-function(for_all_rsids,correlationMicrobes, probs = NULL){
+taxaSnpCor<-function(for_all_rsids,correlationMicrobes, probs = NULL){
   invprods_and_cors <- for_all_rsids %>%
     left_join(correlationMicrobes, by=c("Genus1", "Genus2")) %>%
     filter(is.finite(product_r2)) %>%
@@ -166,15 +162,15 @@ TaxaSnpCor<-function(for_all_rsids,correlationMicrobes, probs = NULL){
   }
 }  
 
-#taxa_SNP_Cor<-TaxaSnpCor(for_all_rsids,correlationMicrobes)
-#taxa_SNP_Cor_lim<-TaxaSnpCor(for_all_rsids,correlationMicrobes,probs = c(0.0001, 0.9999))
+#taxa_SNP_Cor<-taxaSnpCor(for_all_rsids,correlationMicrobes)
+#taxa_SNP_Cor_lim<-taxaSnpCor(for_all_rsids,correlationMicrobes,probs = c(0.0001, 0.9999))
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
 #'  mbQtlCorHeatmap for making heatmap for snp, taxa rho values
 #'
 #' This function produces a log heatmap +1 of the correlation rho values across snp, taxa datasets
-#' @param final_var_long the long data frame of rho values created by the TaxaSnpCor() function. 
+#' @param final_var_long the long data frame of rho values created by the taxaSnpCor() function. 
 #' @param labels_col set to NULL ass default if TRUE, labels will appear on the heatmap
 #' @return A data frame of correlations between taxa
 #' @export

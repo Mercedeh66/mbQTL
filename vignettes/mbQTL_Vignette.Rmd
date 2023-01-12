@@ -69,7 +69,7 @@ LinearAnalysisTaxaSNP<-linearTaxaSnp(microbeAbund,SnpFile,Covariate=CovFile)
 
 ```{r eval=TRUE, echo=TRUE, fig.width = 4, fig.height=4, out.width="90%", dpi=300, fig.align="center"}
 ##Create a histogram of P values across all samples
-Hist_Pvalue_LM(LinearAnalysisTaxaSNP)
+histPvalueLm(LinearAnalysisTaxaSNP)
 #Create a QQPlot of expected versus estimated P value
 qqPlotLm(microbeAbund,SnpFile,Covariate=CovFile)
 ```
@@ -81,17 +81,17 @@ Estimate taxa-taxa correlation (microbeAbund (taxa abundancefile)) and estimate 
 ```{r eval=TRUE, echo=TRUE}
 correlationMicrobes<-coringTaxa(microbeAbund)
 #Estimate taxa SNP - taxa correlation and estimate R2 (To what extent variance in one taxa explains the variance in snp)
-one_rs_id<-all_to_all_product(SnpFile,microbeAbund,"chr1.171282963_T") #For a specific snp
+one_rs_id<-allToAllProduct(SnpFile,microbeAbund,"chr1.171282963_T") #For a specific snp
 #Now estimate rho vale 
-for_all_rsids<-all_to_all_product(SnpFile,microbeAbund) #for all snps
+for_all_rsids<-allToAllProduct(SnpFile,microbeAbund) #for all snps
 #Estimate rho value for SNP - taxa relationship
-taxa_SNP_Cor<-TaxaSnpCor(for_all_rsids,correlationMicrobes) #Estimate rho for all combinations of snp-taxa and taxa-taxa relationships
-taxa_SNP_Cor_lim<-TaxaSnpCor(for_all_rsids,correlationMicrobes,probs = c(0.0001, 0.9999))
+taxa_SNP_Cor<-taxaSnpCor(for_all_rsids,correlationMicrobes) #Estimate rho for all combinations of snp-taxa and taxa-taxa relationships
+taxa_SNP_Cor_lim<-taxaSnpCor(for_all_rsids,correlationMicrobes,probs = c(0.0001, 0.9999))
  # estimate for the top rho values produced
 ```
 
 ```{r eval=TRUE, echo=TRUE, fig.width = 9, fig.height=5, out.width="90%", dpi=300, fig.align="center"}
-##Draw heatmap of rho estimates "taxa_SNP_Cor_lim" is the output of TaxaSnpCor(). You can use other pheatmap settings for extra annotation
+##Draw heatmap of rho estimates "taxa_SNP_Cor_lim" is the output of taxaSnpCor(). You can use other pheatmap settings for extra annotation
 mbQtlCorHeatmap(taxa_SNP_Cor_lim,fontsize_col=5,fontsize_row=7)
 ```
 #C) Logistic Regression analysis
@@ -101,13 +101,13 @@ SNPs and then Genus/species (categorical(presence/absence)) as expression. For t
 ```{r eval=TRUE, echo=TRUE}
 #perform Logistic regression analysis between taxa and snps across samples
 #microbeAbund is the microbe abundance file and SnpFile is the snp file (0,1,2) values
-log_link_resA<-LogRegSNPsTaxa(microbeAbund,SnpFile)
+log_link_resA<-logRegSnpsTaxa(microbeAbund,SnpFile)
 #Perform Logistic regression for specific microbe
-log_link_resB<-LogRegSNPsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus"))
+log_link_resB<-logRegSnpsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus"))
 ```
 
 ```{r eval=TRUE, echo=TRUE, fig.width = 5, fig.height=2, out.width="90%", dpi=300, fig.align="center"}
 #Create a barplot with the specific rsID, and microbe of interest, including the genotype information for the reference versus alternate versus hetrozygous alleles and and presence absecence of microbe of interest.
-Logit_plot<-LogitPlotSnpTaxa(microbeAbund, SnpFile, selectmicrobe = "Neisseria", rsID="chr2.241072116_A", ref="GG", alt="AA",het="AG")
+Logit_plot<-logitPlotSnpTaxa(microbeAbund, SnpFile, selectmicrobe = "Neisseria", rsID="chr2.241072116_A", ref="GG", alt="AA",het="AG")
 Logit_plot
 ```

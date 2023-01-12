@@ -20,6 +20,7 @@ Imports:
   tidyverse,
   data.table,
   utils,
+  metagenomeSeq,
   broom
 Suggests: 
     knitr,

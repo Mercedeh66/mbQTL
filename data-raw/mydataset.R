@@ -1,5 +1,6 @@
 microbeAbund<-read.table("data-raw/Taxa_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
 SnpFile<-read.table("data-raw/SNP_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
 CovFile<-read.table("data-raw/covariates.txt",sep="\t",row.names = 1, header=TRUE)
+metagenomeSeqObj<-readRDS("data-raw/metagenomeSeqReads.RDS")
 usethis::use_data(microbeAbund,SnpFile,CovFile, overwrite = T)
 

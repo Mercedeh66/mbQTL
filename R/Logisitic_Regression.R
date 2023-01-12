@@ -5,14 +5,8 @@
 #' @import stringr
 NULL
 
-#Logistic_regression
-#microbeAbund<-read.table("~/Desktop/Taxa_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
-#microbeAbund <- downloadMbQTLFile("https://zenodo.org/record/4615670/files/Taxa_table_MVP_cor.txt.gz")
-#SnpFile<-read.table("~/Desktop/SNP_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
-#SnpFile <- downloadMbQTLFile("https://zenodo.org/record/4615670/files/Human_miRanda.txt.gz")
-
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  BinarizeMicrobe binarizes microbe abundace file based on user's cutoff
+#'  binarizeMicrobe binarizes microbe abundace file based on user's cutoff
 #'
 #' This function creates a dataframe output produces a formatted dataframe prepared.
 #' @param microbeAbund the taxa abundance dataframe (rownames sample names and colnames taxa Genus/species/family)
@@ -22,9 +16,9 @@ NULL
 #' @return A data frame of microbial abundance
 #' @keywords logitPlotDataframe logitParsing
 #' @examples
-#' x <-BinarizeMicrobe(microbeAbund,cutoff=NULL,selectmicrobe=NULL)  
+#' x <-binarizeMicrobe(microbeAbund,cutoff=NULL,selectmicrobe=NULL)  
 
-BinarizeMicrobe<-function(microbeAbund,cutoff=NULL,selectmicrobe=NULL){
+binarizeMicrobe<-function(microbeAbund,cutoff=NULL,selectmicrobe=NULL){
   if (is.null(cutoff)){  #If value of rsID is not null do this:
     micrbial_abundance_2<-microbeAbund %>% mutate_if(is.numeric, ~ 1 * (. != 0))
   } else{
@@ -60,7 +54,7 @@ BinarizeMicrobe<-function(microbeAbund,cutoff=NULL,selectmicrobe=NULL){
 ##Function to produce dataframe for plot
 prepareCorData<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
   #Function binarizes based on user cutoff and either select microbe or look across all
-  microbial_abundance_4<-BinarizeMicrobe(microbeAbund,cutoff=cutoff,selectmicrobe=selectmicrobe)
+  microbial_abundance_4<-binarizeMicrobe(microbeAbund,cutoff=cutoff,selectmicrobe=selectmicrobe)
   n_snps <- ncol(SnpFile)
   SnpFile$ID<-rownames(SnpFile)
   SNPAss_filt<-SnpFile %>%
@@ -72,7 +66,7 @@ prepareCorData<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  LogRegSNPsTaxa Performs logistic regression analysis between taxa and SNPs and returns concordance statistics  
+#'  logRegSnpsTaxa Performs logistic regression analysis between taxa and SNPs and returns concordance statistics  
 #'
 #' This function creates a dataframe output from the results of either a unique taxa and all snps or all taxa and 
 #' all snps in the dataset. The result is a dataframe with P values and FDRs of all regressions.
@@ -87,9 +81,9 @@ prepareCorData<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
 #' @export
 #' @keywords taxa snp logistic_regression logit
 #' @examples
-#' x <-LogRegSNPsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus"))
+#' x <-logRegSnpsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus"))
 
-LogRegSNPsTaxa<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
+logRegSnpsTaxa<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
   #Function binarizes based on user cutoff and either select microbe or look across all
   final_DF_Logit <- prepareCorData(microbeAbund,SnpFile,cutoff=cutoff,
                                           selectmicrobe=selectmicrobe)
@@ -118,13 +112,13 @@ LogRegSNPsTaxa<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
 }
 
 
-#log_link_res<-LogRegSNPsTaxa(microbeAbund,SnpFile)
-#log_link_res<-LogRegSNPsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus")) 
+#log_link_res<-logRegSnpsTaxa(microbeAbund,SnpFile)
+#log_link_res<-logRegSnpsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus")) 
 
 
 ##Plot function for Logistic Regression
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  LogitPlotSnpTaxa produces bar plots for counts of ref vs alt vs het allells for particular rsID taxa combinations
+#'  logitPlotSnpTaxa produces bar plots for counts of ref vs alt vs het allells for particular rsID taxa combinations
 #'
 #' This function creates a dataframe output produces a formatted dataframe prepared.
 #' @param microbeAbund original microbe abundance file (colnames microbe, rownames= sample IDs)
@@ -139,9 +133,9 @@ LogRegSNPsTaxa<-function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL){
 #' @export
 #' @keywords barplot logitplot
 #' @examples
-#' x <-LogitPlotSnpTaxa(microbeAbund,SnpFile,selectmicrobe=NULL,rsID,ref = NULL,alt = NULL,het = NULL,color = NULL,cutoff=NULL)  
+#' x <-logRegSnpsTaxa(microbeAbund,SnpFile,selectmicrobe=NULL,rsID,ref = NULL,alt = NULL,het = NULL,color = NULL,cutoff=NULL)  
 
-LogitPlotSnpTaxa <-
+logitPlotSnpTaxa <-
   function(microbeAbund,SnpFile,cutoff=NULL,selectmicrobe=NULL,rsID,ref = NULL,alt = NULL,het = NULL,color = NULL) {
     final_DF_Logit <- prepareCorData(microbeAbund,SnpFile,cutoff=cutoff,
                                      selectmicrobe=selectmicrobe)
@@ -192,7 +186,7 @@ LogitPlotSnpTaxa <-
   }
 
 
-#logit_plot <- LogitPlotSnpTaxa(microbeAbund, SnpFile, selectmicrobe = "Neisseria", rsID="chr2.241072116_A", ref="GG", alt="AA",het="AG")
+#logit_plot <- logitPlotSnpTaxa(microbeAbund, SnpFile, selectmicrobe = "Neisseria", rsID="chr2.241072116_A", ref="GG", alt="AA",het="AG")
 
 
 

@@ -6,13 +6,6 @@
 #' @import MatrixEQTL
 NULL
 
-#microbeAbund<-read.table("~/Desktop/Taxa_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
-#microbeAbund <- downloadMbQTLFile("https://zenodo.org/record/4615670/files/Taxa_table_MVP_cor.txt")
-#SnpFile<-read.table("~/Desktop/SNP_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
-#SnpFile <- downloadMbQTLFile("https://zenodo.org/record/4615670/files/SNP_table_MVP_cor.txt.gz")
-#CovFile<-read.table("~/Desktop/covariates.txt",sep="\t",row.names = 1, header=TRUE)
-#CovFile <- downloadMbQTLFile("https://zenodo.org/record/4615670/files/covariates.txt.gz")
-
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
 #'  linearTaxaSnp Performs linear regression analysis between taxa and SNPs and returns concordance statistics  
 #'
@@ -118,7 +111,7 @@ linearTaxaSnp<-function(microbeAbund,SnpFile,Covariate=NULL){
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  Hist_Pvalue_LM a histogram of Taxa and SNP linear regression analysis.
+#'  histPvalueLm a histogram of Taxa and SNP linear regression analysis.
 #'  This function creates a histogram object of all SNPs with all taxa Linear regression analysis p values.
 #' @param LinearAnalysisTaxaSNP the data frame result created from the linearTaxaSnp() function.
 #' @return A histogram object of p values observed from taxa and SNP Linear Regression analysis.
@@ -129,14 +122,14 @@ linearTaxaSnp<-function(microbeAbund,SnpFile,Covariate=NULL){
 
 
 
-Hist_Pvalue_LM<-function(LinearAnalysisTaxaSNP){
+histPvalueLm<-function(LinearAnalysisTaxaSNP){
      return(histing<-hist(as.numeric(LinearAnalysisTaxaSNP$pvalue),col="grey",
      main="Histogram of Taxa-SNP LM P-Values", xlab="P value",
      ylab= "Number of Samples")
      )
 }
 
-#Hist_Pvalue_LM(LinearAnalysisTaxaSNP)
+#histPvalueLm(LinearAnalysisTaxaSNP)
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
