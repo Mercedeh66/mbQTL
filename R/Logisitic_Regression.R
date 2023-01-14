@@ -160,7 +160,7 @@ logitPlotSnpTaxa <-
     
     count_final_DF_Logit_plot_cased2 <-
       final_DF_Logit_plot_cased %>%
-      mutate(Pathogen = case_when(final_DF_Logit_plot_cased[[selectmicrobe]] == 0 ~ "Abscent",
+      mutate(Pathogen = case_when(final_DF_Logit_plot_cased[[selectmicrobe]] == 0 ~ "Absent",
                                   final_DF_Logit_plot_cased[[selectmicrobe]] == 1 ~ "Present"))
     count_plot_file<-count_final_DF_Logit_plot_cased2%>%count(Pathogen, genotype)
     if (is.null(color)) {

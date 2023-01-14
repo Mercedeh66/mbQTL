@@ -17,16 +17,16 @@ NULL
 #' chooses to aggreagte on the phyla/family/Genus or Species level before normalization they have the option.
 #' @return A data frame of normalized/not normalized counts compatible with mbQTL.
 #' @keywords metagenomeSeq MRexperiment normalization
+#' @export
 #' @examples
 #' x <-metagenomeSeqToMbqtl(metagenomeSeqObj, norm=TRUE, log=TRUE, aggregate_taxa= NULL)
-
 metagenomeSeqToMbqtl<-function(meta_glom, norm, log, aggregate_taxa=NULL){
   if (is.null(aggregate_taxa)){ 
     obj= meta_glom
     mat = t(MRcounts(obj, norm = norm, log = log))
     return(as.data.frame(mat))
   }else{
-    obj = aggTax(meta_glom, lvl = aggregate_taxa)
+    obj = metagenomeSeq::aggTax(meta_glom, lvl = aggregate_taxa)
     mat = t(MRcounts(obj, norm = norm, log = log))
     return(as.data.frame(mat))
   }

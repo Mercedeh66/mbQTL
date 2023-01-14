@@ -49,13 +49,26 @@ mbQTL is a statistical package for identifying significant taxa(microbial), snp(
 The datasets used for this vigette are all simulated and are not factual. The Taxa_table_MVP_cor.txt and SNP_table_MVP_cor.txt are used in all three sections mentioned above and the covariates.txt file is used for section A)linear regression.
 
 The input file format for SNP_table_MVP_cor.txt should be colnames with SNP names/locations/rs_numbers and rownames needs to be sample number. For the Taxa_table_MVP_cor.txt the colnames is the microbe name and the row name is th sample number and finally for the covariates.txt file the colnames need to be sample names and the rownames need to be the covariates. Please ensure all 3 files are matching in terms of sample number and are appropriately formatted to avoid errors in your analysis.
-The data can be downloaded from  https://doi.org/10.5281/zenodo.637171.
 
 #Import data
-```{r eval=TRUE, echo=TRUE}
-#Import data from Zenodo
+The files are accessible when the mbQTL library is loaded. 
 
+```{r eval=TRUE, echo=TRUE}
+#microbial count file
+#microbeAbund
+#SNP file
+#SnpFile
+#Covariance file
+#CovFile
+metagenomeSeqObj
 ```
+
+If the user has an MRexperiment microbiome file (metagenomeSeq formatted), one can use the following function to normalize their metagenomeSeq Obj or aggreagate based on various taxanomic levels before
+normalization. The output will be formated in compatible dataframe format for mbQTL. If one has a phyloseq S4 object, they can use the phyloseq_to_metagenomeSeq() option of the phyloseq package and start from there.
+```{r eval=TRUE, echo=TRUE}
+compatible_metagenome_seq<-metagenomeSeqToMbqtl(metagenomeSeqObj, norm=TRUE, log=TRUE, aggregate_taxa="Genus")
+```
+
 
 #A) lineare regression
 
