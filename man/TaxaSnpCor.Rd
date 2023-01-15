@@ -21,7 +21,8 @@ A data frame of correlations between taxa
 This function produces a log heatmap +1 of the correlation rho values across snp, taxa dataframe.
 }
 \examples{
-x <-taxaSnpCor(for_all_rsids,correlationMicrobes)
+x <- taxaSnpCor(for_all_rsids, correlationMicrobes)
+
 }
 \keyword{estimation}
 \keyword{rho}

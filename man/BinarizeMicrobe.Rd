@@ -21,7 +21,10 @@ A data frame of microbial abundance
 This function creates a dataframe output produces a formatted dataframe prepared.
 }
 \examples{
-x <-binarizeMicrobe(microbeAbund,cutoff=NULL,selectmicrobe=NULL)  
+\dontrun{
+x <- binarizeMicrobe(microbeAbund, cutoff = NULL, selectmicrobe = NULL)
+}
+
 }
 \keyword{logitParsing}
 \keyword{logitPlotDataframe}

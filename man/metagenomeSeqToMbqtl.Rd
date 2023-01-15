@@ -16,8 +16,9 @@ metagenomeSeqToMbqtl(meta_glom, norm, log, aggregate_taxa = NULL)
 
 \item{log}{TRUE/FALSE whether or not to log2 transform scale.}
 
-\item{aggregate_taxa}{it is recommended that the normalization occurs at taxa level (default NULL) however, if the user
-chooses to aggreagte on the phyla/family/Genus or Species level before normalization they have the option.}
+\item{aggregate_taxa}{it is recommended that the normalization occurs at taxa level (default NULL)
+however, if the user chooses to aggregate on the phyla/family/Genus or Species
+level before normalization they have the option.}
 }
 \value{
 A data frame of normalized/not normalized counts compatible with mbQTL.
@@ -27,7 +28,7 @@ This function takes and MRexperiement class object transforms it and makes the r
 with mbQTL taxa input file
 }
 \examples{
-x <-metagenomeSeqToMbqtl(metagenomeSeqObj, norm=TRUE, log=TRUE, aggregate_taxa= NULL)
+x <- metagenomeSeqToMbqtl(metagenomeSeqObj, norm = TRUE, log = TRUE, aggregate_taxa = NULL)
 }
 \keyword{MRexperiment}
 \keyword{metagenomeSeq}

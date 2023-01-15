@@ -3,7 +3,8 @@
 \name{qqPlotLm}
 \alias{qqPlotLm}
 \title{qqPlotLm creates QQ-Plot of all SNPs with all taxa Linear regression analysis
-This function creates QQ-Plot object of all SNPs with all taxa Linear regression analysis of expected versus obsered P values}
+This function creates QQ-Plot object of all SNPs with all taxa Linear regression analysis of
+expected versus observed P values}
 \usage{
 qqPlotLm(microbeAbund, SnpFile, Covariate = NULL)
 }
@@ -12,7 +13,7 @@ qqPlotLm(microbeAbund, SnpFile, Covariate = NULL)
 
 \item{SnpFile}{the snp dataframe (values 0,1,2 indicating zygosity), rownames sample names and colnames snp names.}
 
-\item{Covariate}{default is NULL, hence assumed non-existant. If covariates are available they need to be formatted
+\item{Covariate}{default is NULL, hence assumed non-existent. If covariates are available they need to be formatted
 in the CovFile format, that is colnames are sample numbers matching samples in the microbe abundance and snp file
 and row names are the covariates names (such as sex, disease etc).}
 }
@@ -21,10 +22,12 @@ A QQplot object of expected versus obsesrved taxa and SNP Linear Regression anal
 }
 \description{
 qqPlotLm creates QQ-Plot of all SNPs with all taxa Linear regression analysis
-This function creates QQ-Plot object of all SNPs with all taxa Linear regression analysis of expected versus obsered P values
+This function creates QQ-Plot object of all SNPs with all taxa Linear regression analysis of
+expected versus observed P values
 }
 \examples{
-x <-qqPlotLm(microbeAbund,SnpFile,Covariate=CovFile)
+x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
+
 }
 \keyword{linear_regression}
 \keyword{plot}

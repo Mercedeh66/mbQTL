@@ -2,7 +2,8 @@
 % Please edit documentation in R/Logisitic_Regression.R
 \name{logitPlotSnpTaxa}
 \alias{logitPlotSnpTaxa}
-\title{logitPlotSnpTaxa produces bar plots for counts of ref vs alt vs het allells for particular rsID taxa combinations}
+\title{logitPlotSnpTaxa produces bar plots for counts of ref vs alt vs het allells for
+particular rsID taxa combinations}
 \usage{
 logitPlotSnpTaxa(
   microbeAbund,
@@ -19,11 +20,14 @@ logitPlotSnpTaxa(
 \arguments{
 \item{microbeAbund}{original microbe abundance file (colnames microbe, rownames= sample IDs)}
 
-\item{SnpFile}{original snp file with (0,1,2 values for ref, het, alt genotypes), colnames SNP names, rownames, sample IDs.}
+\item{SnpFile}{original snp file with (0,1,2 values for ref, het, alt genotypes), colnames
+SNP names, rownames, sample IDs.}
 
-\item{selectmicrobe}{name of the microbe of interest (for example individual significant microbes associate with a snp).}
+\item{selectmicrobe}{name of the microbe of interest (for example individual significant microbes
+associate with a snp).}
 
-\item{rsID}{name of the snp of interest (for example individual significant snps associated with a microbe)}
+\item{rsID}{name of the snp of interest (for example individual significant snps associated with
+a microbe)}
 
 \item{ref}{the name of reference genotype for example "GG"}
 
@@ -40,7 +44,10 @@ A bar ggplot comparing the counts of ref vs alt vs het genotype
 This function creates a dataframe output produces a formatted dataframe prepared.
 }
 \examples{
-x <-logRegSnpsTaxa(microbeAbund,SnpFile,selectmicrobe=NULL,rsID,ref = NULL,alt = NULL,het = NULL,color = NULL,cutoff=NULL)  
+x <- logRegSnpsTaxa(microbeAbund, SnpFile,
+  selectmicrobe = NULL, rsID,
+  ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL
+)
 }
 \keyword{barplot}
 \keyword{logitplot}

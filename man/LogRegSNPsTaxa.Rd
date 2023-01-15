@@ -26,7 +26,8 @@ This function creates a dataframe output from the results of either a unique tax
 all snps in the dataset. The result is a dataframe with P values and FDRs of all regressions.
 }
 \examples{
-x <-logRegSnpsTaxa(microbeAbund,SnpFile,selectmicrobe = c("Haemophilus"))
+x <- logRegSnpsTaxa(microbeAbund, SnpFile, selectmicrobe = c("Haemophilus"))
+
 }
 \keyword{logistic_regression}
 \keyword{logit}

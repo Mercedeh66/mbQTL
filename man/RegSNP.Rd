@@ -8,6 +8,9 @@ RegSnp(SnpFile, microbeAbund)
 }
 \arguments{
 \item{SnpFile}{the snp file (rownames is sample number and colnames is the snps)}
+
+\item{microbeAbund}{the microbial abundance file (rownames is sample number and colnames is
+the microbe)}
 }
 \value{
 A long parsed datframe of snps
@@ -16,7 +19,10 @@ A long parsed datframe of snps
 This internal function takes the orginal snp dataframe and retruns a long parsed snp dataframe
 }
 \examples{
-x <-RegSnp(SnpFile)
+\dontrun{
+x <- RegSnp(SnpFile, microbeAbund)
+}
+
 }
 \keyword{long}
 \keyword{parsed}

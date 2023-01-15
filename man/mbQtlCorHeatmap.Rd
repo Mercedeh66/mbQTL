@@ -18,7 +18,8 @@ A data frame of correlations between taxa
 This function produces a log heatmap +1 of the correlation rho values across snp, taxa datasets
 }
 \examples{
-x <-mbQtlCorHeatmap(final_var_long)
+x <- mbQtlCorHeatmap(final_var_long)
+
 }
 \keyword{heatmap}
 \keyword{rho}
