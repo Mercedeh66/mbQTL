@@ -150,6 +150,8 @@ allToAllProduct <- function(SnpFile, microbeAbund, rsID = NULL) {
 #' @export
 #' @keywords rho estimation
 #' @examples
+#' for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
+#' correlationMicrobes <- coringTaxa(microbeAbund)
 #' x <- taxaSnpCor(for_all_rsids, correlationMicrobes)
 #'
 taxaSnpCor <- function(for_all_rsids, correlationMicrobes, probs = NULL) {
@@ -190,11 +192,17 @@ taxaSnpCor <- function(for_all_rsids, correlationMicrobes, probs = NULL) {
 #'
 #' This function produces a log heatmap +1 of the correlation rho values across snp, taxa datasets
 #' @param final_var_long the long data frame of rho values created by the taxaSnpCor() function.
-#' @param labels_col set to NULL ass default if TRUE, labels will appear on the heatmap
+#' @param labels_col set to NULL ass default if TRUE, labels will appear on the heatmap.
+#' @param ... all other parameters for pheatmap.
 #' @return A data frame of correlations between taxa
 #' @export
 #' @keywords rho heatmap
 #' @examples
+#'
+#' for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
+#' correlationMicrobes <- coringTaxa(microbeAbund)
+#' taxaSnpCor(for_all_rsids, correlationMicrobes)
+#' final_var_long <- taxaSnpCor(for_all_rsids, correlationMicrobes, probs = c(0.0001, 0.9999))
 #' x <- mbQtlCorHeatmap(final_var_long)
 #'
 mbQtlCorHeatmap <- function(final_var_long, labels_col = NULL, ...) {

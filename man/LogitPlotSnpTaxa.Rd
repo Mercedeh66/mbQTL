@@ -8,13 +8,13 @@ particular rsID taxa combinations}
 logitPlotSnpTaxa(
   microbeAbund,
   SnpFile,
-  cutoff = NULL,
   selectmicrobe = NULL,
   rsID,
   ref = NULL,
   alt = NULL,
   het = NULL,
-  color = NULL
+  color = NULL,
+  cutoff = NULL
 )
 }
 \arguments{
@@ -36,6 +36,8 @@ a microbe)}
 \item{het}{the name of hetrozygote genotype for example "GA"}
 
 \item{color}{the default is NULL and the color is set to c("#ffaa1e", "#87365b").}
+
+\item{cutoff}{cutoff at which we call microbe present or absent}
 }
 \value{
 A bar ggplot comparing the counts of ref vs alt vs het genotype
@@ -44,8 +46,8 @@ A bar ggplot comparing the counts of ref vs alt vs het genotype
 This function creates a dataframe output produces a formatted dataframe prepared.
 }
 \examples{
-x <- logRegSnpsTaxa(microbeAbund, SnpFile,
-  selectmicrobe = NULL, rsID,
+x <- logitPlotSnpTaxa(microbeAbund, SnpFile,
+  selectmicrobe = "Neisseria", rsID="chr2.241072116_A",
   ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL
 )
 }

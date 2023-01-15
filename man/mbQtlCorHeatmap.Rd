@@ -9,7 +9,9 @@ mbQtlCorHeatmap(final_var_long, labels_col = NULL, ...)
 \arguments{
 \item{final_var_long}{the long data frame of rho values created by the taxaSnpCor() function.}
 
-\item{labels_col}{set to NULL ass default if TRUE, labels will appear on the heatmap}
+\item{labels_col}{set to NULL ass default if TRUE, labels will appear on the heatmap.}
+
+\item{...}{all other parameters for pheatmap.}
 }
 \value{
 A data frame of correlations between taxa
@@ -18,6 +20,11 @@ A data frame of correlations between taxa
 This function produces a log heatmap +1 of the correlation rho values across snp, taxa datasets
 }
 \examples{
+
+for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
+correlationMicrobes<-coringTaxa(microbeAbund)
+taxaSnpCor(for_all_rsids, correlationMicrobes)
+final_var_long<-taxaSnpCor(for_all_rsids,correlationMicrobes,probs = c(0.0001, 0.9999))
 x <- mbQtlCorHeatmap(final_var_long)
 
 }

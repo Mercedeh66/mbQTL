@@ -59,7 +59,9 @@ binarizeMicrobe <- function(microbeAbund, cutoff = NULL, selectmicrobe = NULL) {
 #' with P values and P value corrected values.
 #' @keywords logitPlotDataframe
 #' @examples
+#' \dontrun{
 #' x <- prepareCorData(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL)
+#' }
 #'
 ## Function to produce dataframe for plot
 prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL) {
@@ -72,7 +74,6 @@ prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
   final_DF_Logit <- left_join(SNPAss_filt, microbial_abundance_4, by = "ID")
   return(final_DF_Logit)
 }
-
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
@@ -134,9 +135,9 @@ logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #'  particular rsID taxa combinations
 #'
 #' This function creates a dataframe output produces a formatted dataframe prepared.
-#' @param microbeAbund original microbe abundance file (colnames microbe, rownames= sample IDs)
 #' @param SnpFile original snp file with (0,1,2 values for ref, het, alt genotypes), colnames
 #'                SNP names, rownames, sample IDs.
+#' @param microbeAbund original microbe abundance file (colnames microbe, rownames= sample IDs)
 #' @param selectmicrobe name of the microbe of interest (for example individual significant microbes
 #'                      associate with a snp).
 #' @param rsID name of the snp of interest (for example individual significant snps associated with
@@ -145,17 +146,18 @@ logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #' @param alt the name of snp (variant) genotype for example "AA"
 #' @param het the name of hetrozygote genotype for example "GA"
 #' @param color the default is NULL and the color is set to c("#ffaa1e", "#87365b").
+#' @param cutoff cutoff at which we call microbe present or absent
 #' @return A bar ggplot comparing the counts of ref vs alt vs het genotype
 #' @export
 #' @keywords barplot logitplot
 #' @examples
-#' x <- logRegSnpsTaxa(microbeAbund, SnpFile,
-#'   selectmicrobe = NULL, rsID,
+#' x <- logitPlotSnpTaxa(microbeAbund, SnpFile,
+#'   selectmicrobe = "Neisseria", rsID = "chr2.241072116_A",
 #'   ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL
 #' )
 logitPlotSnpTaxa <-
-  function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL,
-           rsID, ref = NULL, alt = NULL, het = NULL, color = NULL) {
+  function(microbeAbund, SnpFile, selectmicrobe = NULL,
+           rsID, ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL) {
     final_DF_Logit <- prepareCorData(microbeAbund, SnpFile,
       cutoff = cutoff,
       selectmicrobe = selectmicrobe
@@ -178,7 +180,12 @@ logitPlotSnpTaxa <-
           count == 1 ~ het
         ))
     } else {
-      final_DF_Logit_plot_cased <- final_DF_Logit_plot
+      final_DF_Logit_plot_cased <- final_DF_Logit_plot %>%
+        mutate(genotype = case_when(
+          count == 2 ~ "2",
+          count == 0 ~ "0",
+          count == 1 ~ "1"
+        ))
     }
     count_final_DF_Logit_plot_cased2 <-
       final_DF_Logit_plot_cased %>%
