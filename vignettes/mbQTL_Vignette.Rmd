@@ -35,8 +35,13 @@ library(tidyr)
 data("SnpFile")
 data("microbeAbund")
 data("CovFile")
+data("metagenomeSeqObj")
 
 doctype <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+```{r}
+sessionInfo()
 ```
 
 # Introduction

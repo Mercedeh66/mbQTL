@@ -22,7 +22,7 @@ This function produces a log heatmap +1 of the correlation rho values across snp
 }
 \examples{
 for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
-correlationMicrobes<-coringTaxa(microbeAbund)
+correlationMicrobes <- coringTaxa(microbeAbund)
 x <- taxaSnpCor(for_all_rsids, correlationMicrobes)
 
 }

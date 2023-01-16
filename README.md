@@ -1,4 +1,4 @@
-<img src="man/figures/logo.png" align="right" alt="logo.png" width="180" />
+#<img src="man/figures/logo.png" align="right" alt="logo.png" width="180" />
 
 # mbQTL
 

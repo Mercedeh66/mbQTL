@@ -32,7 +32,8 @@ if (getRversion() >= "2.15.1") {
 coringTaxa <- function(microbeAbund) {
   # start parsing
   ppr <- rownames(microbeAbund)
-  microbeAbundA <- as.data.frame(sapply(microbeAbund, as.numeric))
+  vapply_type <- array(data = 0.0, dim = nrow(microbeAbund))
+  microbeAbundA <- as.data.frame(vapply(microbeAbund, as.numeric, vapply_type))
   rownames(microbeAbundA) <- ppr
   coringTaxaR <- cor(microbeAbundA)
   coringTaxaF <- as.data.frame(coringTaxaR)
@@ -109,7 +110,8 @@ allToAllProduct <- function(SnpFile, microbeAbund, rsID = NULL) {
   # Function to solve on one of the items
   apply_product <- function(rsID) {
     filtered <- filter(r2_long, rsID == !!rsID)
-    mtx <- sapply(filtered$R2, `*`, filtered$R2)
+    vapply_type <- array(data = 0.0, dim = length(filtered$R2))
+    mtx <- vapply(filtered$R2, `*`, vapply_type, filtered$R2)
     rownames(mtx) <- filtered$Genus1
     colnames(mtx) <- filtered$Genus1
     mtx <- as.data.frame(1.0 / mtx)

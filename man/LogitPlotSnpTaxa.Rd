@@ -47,7 +47,7 @@ This function creates a dataframe output produces a formatted dataframe prepared
 }
 \examples{
 x <- logitPlotSnpTaxa(microbeAbund, SnpFile,
-  selectmicrobe = "Neisseria", rsID="chr2.241072116_A",
+  selectmicrobe = "Neisseria", rsID = "chr2.241072116_A",
   ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL
 )
 }

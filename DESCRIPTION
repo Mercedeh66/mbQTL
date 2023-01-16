@@ -1,7 +1,7 @@
 Package: mbQTL
 Type: Package
 Title: mbQTL
-Version: 0.0.1
+Version: 0.99.0
 Authors@R: 
     c(person(given = "Mercedeh",
            family = "Movassagh",
@@ -22,8 +22,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Depends: R (>= 4.1.0), BiocStyle
 DeploySubPath: mbQTL
-biocViews: microbe, Pathogen, Software, Sequencing, 16s-ribosomal RNA/DNA sequencing,
-           SNPs, single nucleotide polymorphism, Regression, Correlation, microbe-SNP, variant
+biocViews: SNP, Microbiome,WholeGenome, Metagenomics, StatisticalMethod, Regression
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports:
@@ -35,9 +34,10 @@ Imports:
   tidyr,
   metagenomeSeq,
   pheatmap,
-  broom
+  broom,
+  graphics,
+  stats
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-LazyData: true
