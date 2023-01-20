@@ -20,6 +20,8 @@ A dataframe of correlations between snps and taxa
 This internal function takes the original snp dataframe and returns a long parsed snp dataframe
 }
 \examples{
+data(microbeAbund)
+data(SnpFile)
 x <- allToAllProduct(SnpFile, microbeAbund, "chr1.171282963_T")
 
 }

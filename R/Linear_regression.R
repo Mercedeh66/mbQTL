@@ -24,6 +24,9 @@ NULL
 #' @export
 #' @keywords taxa snp linear regression LR
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
+#' data(CovFile)
 #' x <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
@@ -126,6 +129,9 @@ linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
 #' @export
 #' @keywords taxa snp linear_regression plot histogram
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
+#' data(CovFile)
 #' x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 histPvalueLm <- function(LinearAnalysisTaxaSNP) {
@@ -152,6 +158,9 @@ histPvalueLm <- function(LinearAnalysisTaxaSNP) {
 #' @export
 #' @keywords taxa snp linear_regression plot
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
+#' data(CovFile)
 #' x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 qqPlotLm <- function(microbeAbund, SnpFile, Covariate = NULL) {

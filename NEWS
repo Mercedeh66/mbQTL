@@ -1,2 +1,5 @@
+Changes in Version 0.99.1 (2023-01-19)
++ corrected data loading issues in examples
+
 Changes in Version 0.99.0 (2023-01-15)
 + initiated Package and NEWS file

@@ -26,6 +26,8 @@ This function creates a dataframe output from the results of either a unique tax
 all snps in the dataset. The result is a dataframe with P values and FDRs of all regressions.
 }
 \examples{
+data(microbeAbund)
+data(SnpFile)
 x <- logRegSnpsTaxa(microbeAbund, SnpFile, selectmicrobe = c("Haemophilus"))
 
 }

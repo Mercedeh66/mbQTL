@@ -20,9 +20,9 @@ Description: mbQTL is a statistical R package for simultaneous 16srRNA,16srDNA (
  dataframe, MRexperiment and text formats.
 License: MIT + file LICENSE
 Encoding: UTF-8
-Depends: R (>= 4.1.0), BiocStyle
+Depends: R (>= 4.2.0)
 DeploySubPath: mbQTL
-biocViews: SNP, Microbiome,WholeGenome, Metagenomics, StatisticalMethod, Regression
+biocViews: SNP, Microbiome, WholeGenome, Metagenomics, StatisticalMethod, Regression
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 Imports:
@@ -39,5 +39,6 @@ Imports:
   stats
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    BiocStyle
 VignetteBuilder: knitr

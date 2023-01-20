@@ -28,6 +28,7 @@ This function takes and MRexperiement class object transforms it and makes the r
 with mbQTL taxa input file
 }
 \examples{
+data(metagenomeSeqObj)
 x <- metagenomeSeqToMbqtl(metagenomeSeqObj, norm = TRUE, log = TRUE, aggregate_taxa = NULL)
 }
 \keyword{MRexperiment}

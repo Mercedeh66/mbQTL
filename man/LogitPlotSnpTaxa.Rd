@@ -46,6 +46,8 @@ A bar ggplot comparing the counts of ref vs alt vs het genotype
 This function creates a dataframe output produces a formatted dataframe prepared.
 }
 \examples{
+data(microbeAbund)
+data(SnpFile)
 x <- logitPlotSnpTaxa(microbeAbund, SnpFile,
   selectmicrobe = "Neisseria", rsID = "chr2.241072116_A",
   ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL

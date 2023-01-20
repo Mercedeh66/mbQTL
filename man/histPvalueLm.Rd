@@ -18,6 +18,9 @@ histPvalueLm a histogram of Taxa and SNP linear regression analysis.
 This function creates a histogram object of all SNPs with all taxa Linear regression analysis p values.
 }
 \examples{
+data(microbeAbund)
+data(SnpFile)
+data(CovFile)
 x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 
 }

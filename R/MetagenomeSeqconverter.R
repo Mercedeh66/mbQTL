@@ -20,6 +20,7 @@ NULL
 #' @keywords metagenomeSeq MRexperiment normalization
 #' @export
 #' @examples
+#' data(metagenomeSeqObj)
 #' x <- metagenomeSeqToMbqtl(metagenomeSeqObj, norm = TRUE, log = TRUE, aggregate_taxa = NULL)
 metagenomeSeqToMbqtl <- function(meta_glom, norm, log, aggregate_taxa = NULL) {
   if (is.null(aggregate_taxa)) {

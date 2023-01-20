@@ -17,6 +17,7 @@ This function creates an output correlation data frame for all microbial taxa (o
 viral or parasitic taxa)
 }
 \examples{
+data(microbeAbund)
 x <- coringTaxa(microbeAbund)
 
 }

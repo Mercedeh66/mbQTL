@@ -26,6 +26,9 @@ This function creates QQ-Plot object of all SNPs with all taxa Linear regression
 expected versus observed P values
 }
 \examples{
+data(microbeAbund)
+data(SnpFile)
+data(CovFile)
 x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 
 }

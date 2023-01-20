@@ -26,6 +26,7 @@ if (getRversion() >= "2.15.1") {
 #' @export
 #' @keywords taxa correlation
 #' @examples
+#' data(microbeAbund)
 #' x <- coringTaxa(microbeAbund)
 #'
 # Function to run correlation on the taxa-taxa
@@ -52,8 +53,6 @@ coringTaxa <- function(microbeAbund) {
 
 
 ## SNPs
-# SnpFile<-read.table("~/Desktop/SNP_table_MVP_cor.txt",sep="\t",row.names = 1, header=TRUE)
-# SnpFile <- downloadSNPFile("https://zenodo.org/record/4615670/files/Human_miRanda.txt.gz")
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
 #'  RegSnp creates a dataframe of parsed long snp files
@@ -101,6 +100,8 @@ RegSnp <- function(SnpFile, microbeAbund) {
 #' @keywords snptaxa Correlation
 #' @export
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
 #' x <- allToAllProduct(SnpFile, microbeAbund, "chr1.171282963_T")
 #'
 # function to make R2
@@ -152,6 +153,9 @@ allToAllProduct <- function(SnpFile, microbeAbund, rsID = NULL) {
 #' @export
 #' @keywords rho estimation
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
+#'
 #' for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
 #' correlationMicrobes <- coringTaxa(microbeAbund)
 #' x <- taxaSnpCor(for_all_rsids, correlationMicrobes)
@@ -201,6 +205,8 @@ taxaSnpCor <- function(for_all_rsids, correlationMicrobes, probs = NULL) {
 #' @keywords rho heatmap
 #' @examples
 #'
+#' data(microbeAbund)
+#' data(SnpFile)
 #' for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
 #' correlationMicrobes <- coringTaxa(microbeAbund)
 #' taxaSnpCor(for_all_rsids, correlationMicrobes)

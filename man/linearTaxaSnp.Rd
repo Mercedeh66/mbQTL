@@ -25,6 +25,9 @@ snps in the dataset. The result is a dataframe with P values and FDRs of all reg
 are utilized to achieve this.
 }
 \examples{
+data(microbeAbund)
+data(SnpFile)
+data(CovFile)
 x <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
 
 }

@@ -92,6 +92,8 @@ prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #' @export
 #' @keywords taxa snp logistic_regression logit
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
 #' x <- logRegSnpsTaxa(microbeAbund, SnpFile, selectmicrobe = c("Haemophilus"))
 #'
 logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL) {
@@ -151,6 +153,8 @@ logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #' @export
 #' @keywords barplot logitplot
 #' @examples
+#' data(microbeAbund)
+#' data(SnpFile)
 #' x <- logitPlotSnpTaxa(microbeAbund, SnpFile,
 #'   selectmicrobe = "Neisseria", rsID = "chr2.241072116_A",
 #'   ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL
