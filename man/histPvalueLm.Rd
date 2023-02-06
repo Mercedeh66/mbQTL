@@ -19,9 +19,11 @@ This function creates a histogram object of all SNPs with all taxa Linear regres
 }
 \examples{
 data(microbeAbund)
+data(microbeAbund)
 data(SnpFile)
 data(CovFile)
-x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
+LinearAnalysisTaxaSNPFile <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
+x <- histPvalueLm(LinearAnalysisTaxaSNPFile)
 
 }
 \keyword{histogram}

@@ -9,6 +9,11 @@
 ## Installation
 ```
 devtools::install_github('Mercedeh66/mbQTL')
+
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("mbQTL")
 ```
 ## Issues and bug reports
 Please use https://github.com/Mercedeh66/mbQTL/issues to submit issues, bug reports, and comments.

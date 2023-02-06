@@ -24,10 +24,4 @@ with P values and P value corrected values.
 \description{
 This function creates a dataframe output produces a formatted dataframe prepared.
 }
-\examples{
-\dontrun{
-x <- prepareCorData(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL)
-}
-
-}
 \keyword{logitPlotDataframe}

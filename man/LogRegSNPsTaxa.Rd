@@ -19,7 +19,7 @@ specific pathogen use name of the pathogen for example "Haemophilus".}
 }
 \value{
 A data frame which is a result of Logistic regression  products of individual snp, taxa relationships,
-with P values and P value corrected values.
+with P values and P value corrected values (FDR, Bonferroni).
 }
 \description{
 This function creates a dataframe output from the results of either a unique taxa and all snps or all taxa and

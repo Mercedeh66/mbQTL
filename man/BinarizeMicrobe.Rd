@@ -9,22 +9,17 @@ binarizeMicrobe(microbeAbund, cutoff = NULL, selectmicrobe = NULL)
 \arguments{
 \item{microbeAbund}{the taxa abundance dataframe (rownames sample names and colnames taxa Genus/species/family)}
 
-\item{cutoff}{cutoff at which the userchose to call taxa positive or negative across samples.}
+\item{cutoff}{cutoff at which the user chose to call taxa positive or negative across samples (should be a numeric value
+for normalized or count values).}
 
 \item{selectmicrobe}{default is and all taxa are considered at the same time, if the user is interested in a
 specific pathogen use name of the pathogen for example "Haemophilus".}
 }
 \value{
-A data frame of microbial abundance
+A data frame of microbial abundance.
 }
 \description{
 This function creates a dataframe output produces a formatted dataframe prepared.
-}
-\examples{
-\dontrun{
-x <- binarizeMicrobe(microbeAbund, cutoff = NULL, selectmicrobe = NULL)
-}
-
 }
 \keyword{logitParsing}
 \keyword{logitPlotDataframe}

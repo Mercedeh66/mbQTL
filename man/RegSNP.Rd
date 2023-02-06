@@ -18,12 +18,6 @@ A long parsed datframe of snps
 \description{
 This internal function takes the orginal snp dataframe and retruns a long parsed snp dataframe
 }
-\examples{
-\dontrun{
-x <- RegSnp(SnpFile, microbeAbund)
-}
-
-}
 \keyword{long}
 \keyword{parsed}
 \keyword{snp}

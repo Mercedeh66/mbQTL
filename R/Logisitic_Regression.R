@@ -18,15 +18,12 @@ if (getRversion() >= "2.15.1") {
 #'
 #' This function creates a dataframe output produces a formatted dataframe prepared.
 #' @param microbeAbund the taxa abundance dataframe (rownames sample names and colnames taxa Genus/species/family)
-#' @param cutoff cutoff at which the userchose to call taxa positive or negative across samples.
+#' @param cutoff cutoff at which the user chose to call taxa positive or negative across samples (should be a numeric value
+#' for normalized or count values).
 #' @param selectmicrobe default is and all taxa are considered at the same time, if the user is interested in a
 #' specific pathogen use name of the pathogen for example "Haemophilus".
-#' @return A data frame of microbial abundance
+#' @return A data frame of microbial abundance.
 #' @keywords logitPlotDataframe logitParsing
-#' @examples
-#' \dontrun{
-#' x <- binarizeMicrobe(microbeAbund, cutoff = NULL, selectmicrobe = NULL)
-#' }
 #'
 binarizeMicrobe <- function(microbeAbund, cutoff = NULL, selectmicrobe = NULL) {
   if (is.null(cutoff)) { # If value of rsID is not null do this:
@@ -58,10 +55,6 @@ binarizeMicrobe <- function(microbeAbund, cutoff = NULL, selectmicrobe = NULL) {
 #' @return A data frame which is a result of Logistic regression  products of individual snp, taxa relationships,
 #' with P values and P value corrected values.
 #' @keywords logitPlotDataframe
-#' @examples
-#' \dontrun{
-#' x <- prepareCorData(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL)
-#' }
 #'
 ## Function to produce dataframe for plot
 prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL) {
@@ -88,7 +81,7 @@ prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #' @param selectmicrobe default is and all taxa are considered at the same time, if the user is interested in a
 #' specific pathogen use name of the pathogen for example "Haemophilus".
 #' @return A data frame which is a result of Logistic regression  products of individual snp, taxa relationships,
-#' with P values and P value corrected values.
+#' with P values and P value corrected values (FDR, Bonferroni).
 #' @export
 #' @keywords taxa snp logistic_regression logit
 #' @examples
@@ -97,6 +90,10 @@ prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #' x <- logRegSnpsTaxa(microbeAbund, SnpFile, selectmicrobe = c("Haemophilus"))
 #'
 logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL) {
+  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
+  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+  stopifnot("The value for 'cutoff'" = is.null(cutoff) || is.numeric(cutoff))
+  stopifnot("The value for 'selectmicrobe'" = is.null(cutoff) || is.character(selectmicrobe))
   # Function binarizes based on user cutoff and either select microbe or look across all
   final_DF_Logit <- prepareCorData(microbeAbund, SnpFile,
     cutoff = cutoff,
@@ -162,6 +159,15 @@ logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 logitPlotSnpTaxa <-
   function(microbeAbund, SnpFile, selectmicrobe = NULL,
            rsID, ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL) {
+    stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
+    stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+    stopifnot("The value for 'rsID'" = is.null(cutoff) || is.character(rsID))
+    stopifnot("The value for 'selectmicrobe'" = is.null(cutoff) || is.character(selectmicrobe))
+    stopifnot("The value for 'ref'" = is.null(ref) || is.character(ref))
+    stopifnot("The value for 'alt'" = is.null(alt) || is.character(alt))
+    stopifnot("The value for 'het'" = is.null(het) || is.character(het))
+    stopifnot("The value for 'color'" = is.null(color) || is.character(color))
+    stopifnot("The value for 'cutoff'" = is.null(cutoff) || is.numeric(cutoff))
     final_DF_Logit <- prepareCorData(microbeAbund, SnpFile,
       cutoff = cutoff,
       selectmicrobe = selectmicrobe

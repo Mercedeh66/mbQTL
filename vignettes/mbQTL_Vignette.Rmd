@@ -1,14 +1,18 @@
 ---
 title: "mbQTL_Vignette"
-date: "2023-01-06"
+date: "2023-02-05"
 author: "Mercedeh Movassagh"
 package: mbQTL
-output: rmarkdown::html_vignette
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_depth: 2
 vignette: >
   %\VignetteIndexEntry{MbQTL_Vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -19,6 +23,43 @@ knitr::opts_chunk$set(
 
 ```{r style, echo=FALSE, results='asis'}
 BiocStyle::markdown()
+```
+
+
+```{css, echo=FALSE}
+.header-section-number {
+  display: none;
+}
+
+body {
+  counter-reset: counter-level-1;
+}
+
+h1:not(.title) {
+  counter-increment: counter-level-1;
+  counter-reset: counter-level-2;
+}
+
+h1:not(.title)::before{
+  content: counter(counter-level-1, upper-alpha) ". ";
+}
+
+h2 {
+  counter-incrementx: counter-level-2;
+  counter-reset: counter-level-3;
+}
+
+h2::before {
+  content: counter(counter-level-1, upper-alpha) "." counter(counter-level-2) " ";
+}
+
+h3 {
+  counter-increment: counter-level-3;
+}
+
+h3::before {
+  content: counter(counter-level-1, upper-alpha) "." counter(counter-level-2) "." counter(counter-level-3) " ";
+}
 ```
 
 ```{r setup}
@@ -46,17 +87,17 @@ sessionInfo()
 
 # Introduction
 
-mbQTL is a statistical package for identifying significant taxa(microbial), snp(genotype) relationships across large sample sets. The package measures this relationship using three different approaches. A) linear regression analysis which uses core MatrixEQTL model. B) rho estimation for correlation of taxa and SNP, which is a novel method of estimating rho values after R value of taxa-taxa is estimated then adjusted for association of taxa-SNP. Using this method various taxa-SNP associations can be estimated simultaneously, and linkage disequilibrium (LD) snps and regions can be identified in terms of presence and their associations with snps. C) Utilizing Logistic regression analysis, we estimate the relationship of one snp and one taxa across the sample cohort but simultaneously this could be estimated for all samples and proper statistics is produced from these regressions. Appropriate plots are generated for all three methods utilized in this vignette and are part of the package to simplify visualization.
+mbQTL is a statistical package for identifying significant taxa (microbial), snp (genotype) relationships across large sample sets. The package measures this relationship using three different approaches. A) linear regression analysis which uses core MatrixeQTL model. B) rho estimation for correlation of taxa and SNP, which is a novel method of estimating rho values after R value of taxa-taxa is estimated then adjusted for association of taxa-SNP. Using this method various taxa-SNP associations can be estimated simultaneously, and linkage disequilibrium (LD) snps and regions can be identified in terms of presence and their associations with snps (see section for more details). C) Utilizing Logistic regression analysis, we estimate the relationship of one snp and one taxa across the sample cohort but simultaneously this could be estimated for all samples and proper statistics is produced from these regressions. Appropriate plots are generated for all three methods utilized in this vignette and are part of the package to simplify visualization.
 
+# Data upload.
 
-## Data upload- mbQTL accepts data in dataframe or table formats
 
 The datasets used for this vigette are all simulated and are not factual. The Taxa_table_MVP_cor.txt and SNP_table_MVP_cor.txt are used in all three sections mentioned above and the covariates.txt file is used for section A)linear regression.
 
 The input file format for SNP_table_MVP_cor.txt should be colnames with SNP names/locations/rs_numbers and rownames needs to be sample number. For the Taxa_table_MVP_cor.txt the colnames is the microbe name and the row name is th sample number and finally for the covariates.txt file the colnames need to be sample names and the rownames need to be the covariates. Please ensure all 3 files are matching in terms of sample number and are appropriately formatted to avoid errors in your analysis.
 
-#Import data
-The files are accessible when the mbQTL library is loaded. 
+## Import data
+mbQTL accepts data in dataframe, MRexperiment objects or table formats.The files are accessible when the mbQTL library is loaded. 
 
 ```{r eval=TRUE, echo=TRUE}
 # microbial count file
@@ -68,72 +109,139 @@ The files are accessible when the mbQTL library is loaded.
 metagenomeSeqObj
 ```
 
-If the user has an MRexperiment microbiome file (metagenomeSeq formatted), one can use the following function to normalize their metagenomeSeq Obj or aggreagate based on various taxanomic levels before
-normalization. The output will be formated in compatible dataframe format for mbQTL. If one has a phyloseq S4 object, they can use the phyloseq_to_metagenomeSeq() option of the phyloseq package and start from there.
+
+If the user has an MRexperiment microbiome file (metagenomeSeq formatted), one can use the following function to normalize their metagenomeSeq Obj or aggreagate based on various taxanomic levels before normalization. 
+The output will be formated in compatible data frame format for mbQTL. If one has a phyloseq S4 object, they can use the phyloseq_to_metagenomeSeq() option of the phyloseq package and start from there.
+
+
 ```{r eval=TRUE, echo=TRUE}
-compatible_metagenome_seq <- metagenomeSeqToMbqtl(metagenomeSeqObj, norm = TRUE, log = TRUE, aggregate_taxa = "Genus")
+
+compatible_metagenome_seq <- metagenomeSeqToMbqtl(metagenomeSeqObj,
+                                                  norm = TRUE, log = TRUE,
+                                                  aggregate_taxa = "Genus")
+
+#Check for the class of compatible_metagenome_seq
+
+class(compatible_metagenome_seq)
 ```
 
 
-#A) lineare regression
+# Part A. Lineare regression
 
-Linear regression analysis to identify significant association between taxa and SNPs across large sample sized. P values FDRs, Pvalue histogram plots and QQplots are provided for various taxa and SNP regression analysis performed. microbeAbund is the taxa abundance file, SnpFile us file across samples (0,1,2  (reference, hetrozygous and alternate genotype).
+Linear regression analysis to identify significant association between taxa and SNPs across large sample sized. P values FDRs, Pvalue histogram plots and QQplots are provided for various taxa and SNP regression analysis performed. microbeAbund is the taxa abundance file, SnpFile us file across samples (0,1,2  (reference, hetrozygous and alternate genotype). MatrixeQTL makes its estimations assuming three different models of which we employ two, a) assumption of simple linear regression for each gene and SNV pair The first approach is a very similar approach to that of the expression quantitative trait loci association (eQTL). b) regression model with covariates (Shabalin, 2012).
+
 
 ```{r eval=TRUE, echo=TRUE}
+
 # perform linear regression analysis between taxa and snps across samples and
-# produce a dataframe of results.
-LinearAnalysisTaxaSNP <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
+# produce a data frame of results.(covariate file is optional but highly recommended
+# to avoid results which might be prone to batch effects and obtaining optimal biological
+# relevance for finding snp - taxa relationships.)
+# The input files are microbial abundance file (rownames taxa, colnames sample names) and
+# SnpFile (rownames snps and colnames sample names) with optional CovFile (rownames covariates
+# and colnames sample names) ( note all samples should be concordant in the three datasets).
+
+LinearAnalysisTaxaSNP <- linearTaxaSnp(microbeAbund,
+                                       SnpFile,
+                                       Covariate = CovFile)
 ```
+
 
 ```{r eval=TRUE, echo=TRUE, fig.width = 4, fig.height=4, out.width="90%", dpi=300, fig.align="center"}
-## Create a histogram of P values across all samples
+
+## Create a histogram of P values across all snp - taxa linear regression estimations
+
 histPvalueLm(LinearAnalysisTaxaSNP)
-# Create a QQPlot of expected versus estimated P value
+
+
+# Create a QQPlot of expected versus estimated P value for all all
+#snp - taxa linear regression estimations
+
 qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 ```
 
-#B) Correlation analysis (rho estimation)
 
-Estimate taxa-taxa correlation (microbeAbund (taxa abundancefile)) and estimate R (Strength of the relationship between taxa x and y). In other words we estimate Goodness of fits, as a measure of a feature’s association with host genetics (Significant SNPs) association with taxa (matching 16S results)
+# Part B. Correlation analysis (rho estimation)
+
+Estimate taxa-taxa correlation (microbeAbund (taxa abundancefile)) and estimate R (Strength of the relationship between taxa x and y). In other words we estimate Goodness of fits, as a measure of a feature’s association with host genetics (Significant SNPs) association with taxa (matching 16S results). In details we measure the strength of relationship between taxa x and taxa y (R correlation value), next we measure goodness of fits R2 and ask to what extent the variance in one taxa explains the variance in a SNP,  and finally we find clusters of taxa associated with various SNPs across the dataset by evaluating and controlling for both these measures together and finally estimating rho value.
+
 
 ```{r eval=TRUE, echo=TRUE}
+
+# Estimate taxa SNP - taxa correlation R and estimate R2
+# (To what extent variance in one taxa explains the
+# variance in snp)
+
+#First estimate R value for all SNP-Taxa relationships
+
 correlationMicrobes <- coringTaxa(microbeAbund)
-# Estimate taxa SNP - taxa correlation and estimate R2 (To what extent variance
-# in one taxa explains the variance in snp)
-one_rs_id <- allToAllProduct(SnpFile, microbeAbund, "chr1.171282963_T") # For a specific snp
-# Now estimate rho vale
-# for all snps Estimate rho value for SNP - taxa relationship
+
+# Estimate the correlation value (R2) between a specific snp and all taxa.
+
+one_rs_id <- allToAllProduct(SnpFile, microbeAbund, "chr1.171282963_T")
+
+# Estimate the correlation value (R2) between all snps and all taxa.
+
 for_all_rsids <- allToAllProduct(SnpFile, microbeAbund)
-# Estimate rho for all combinations of snp-taxa and taxa-taxa relationships
+
+# Estimate rho value for all snps and all taxa present in the dataset.
+
 taxa_SNP_Cor <- taxaSnpCor(for_all_rsids, correlationMicrobes)
-# estimate for the top rho values produced
-taxa_SNP_Cor_lim <- taxaSnpCor(for_all_rsids, correlationMicrobes, probs = c(0.0001, 0.9999))
+
+# Estimate rho value for all snps and all taxa present in the
+# dataset and pick the highest and lowest p values in the
+# dataset to identify improtant SNP-Taxa relationships.
+
+taxa_SNP_Cor_lim <- taxaSnpCor(for_all_rsids,
+                               correlationMicrobes,
+                               probs = c(0.0001, 0.9999))
 ```
+
 
 ```{r eval=TRUE, echo=TRUE, fig.width = 9, fig.height=5, out.width="90%", dpi=300, fig.align="center"}
-## Draw heatmap of rho estimates "taxa_SNP_Cor_lim" is the output of taxaSnpCor().
-# You can use other pheatmap settings for extra annotation
-mbQtlCorHeatmap(taxa_SNP_Cor_lim, fontsize_col = 5, fontsize_row = 7)
-```
-#C) Logistic Regression analysis
 
-SNPs and then Genus/species (categorical(presence/absence)) as expression. For this we need to binarize out taxa abundance file based on a cutoff to a zero or one or presence or absence format. 
+## Draw heatmap of rho estimates "taxa_SNP_Cor_lim" is the
+# output of taxaSnpCor().
+# One can use other pheatmap() settings for extra annotation
+
+mbQtlCorHeatmap(taxa_SNP_Cor_lim, fontsize_col = 5,
+                fontsize_row = 7)
+```
+
+
+# Part C. Logistic Regression analysis
+SNPs and then Genus/species (categorical(presence/absence)) as expression. For this we need to binarize out taxa abundance file based on a cutoff to a zero or one or presence or absence format. We assume a presence and absence binary/categorical relationship between every taxa and SNP pair and use a logistic regression model to identify significance taxa-SNP relationships.
 
 ```{r eval=TRUE, echo=TRUE}
+
 # perform Logistic regression analysis between taxa and snps across samples
-# microbeAbund is the microbe abundance file and SnpFile is the snp file (0,1,2) values
+# microbeAbund is the microbe abundance file (a dateframe with rownames as taxa
+# and colnames and sample names) and SnpFile is the snp file (0,1,2) values
+# (rownames as snps and colnames as samples)
+
 log_link_resA <- logRegSnpsTaxa(microbeAbund, SnpFile)
+
 # Perform Logistic regression for specific microbe
-log_link_resB <- logRegSnpsTaxa(microbeAbund, SnpFile, selectmicrobe = c("Haemophilus"))
+
+log_link_resB <- logRegSnpsTaxa(microbeAbund, SnpFile,
+                                selectmicrobe = c("Haemophilus"))
 ```
 
+
+
 ```{r eval=TRUE, echo=TRUE, fig.width = 5, fig.height=2, out.width="90%", dpi=300, fig.align="center"}
+
 # Create a barplot with the specific rsID, and microbe of interest, including
 # the genotype information for the reference versus alternate versus hetrozygous
-# alleles and and presence absecence of microbe of interest.
+# alleles and and presence absence of microbe of interest.
+# Note your reference, alternative and heterozygous genotype values need to
+# match the genotype of your SNP of interest this information can be obtained
+# from snpdb data base or GATK/plink files.
+
 Logit_plot <- logitPlotSnpTaxa(microbeAbund, SnpFile,
   selectmicrobe = "Neisseria",
   rsID = "chr2.241072116_A", ref = "GG", alt = "AA", het = "AG"
 )
+
 Logit_plot
 ```

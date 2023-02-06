@@ -23,6 +23,19 @@ NULL
 #' data(metagenomeSeqObj)
 #' x <- metagenomeSeqToMbqtl(metagenomeSeqObj, norm = TRUE, log = TRUE, aggregate_taxa = NULL)
 metagenomeSeqToMbqtl <- function(meta_glom, norm, log, aggregate_taxa = NULL) {
+  stopifnot("MRexperiment object expected for 'meta_glom'" = class(meta_glom) == "MRexperiment")
+  stopifnot("TRUE/FALSE expected for 'norm'" = is.logical(norm))
+  stopifnot("TRUE/FALSE expected for 'log'" = is.logical(log))
+  stopifnot(
+    "agreggate_taxa can only have the following values 'Phylum', 'Family', 'Genus', 'Species'" =
+      is.null(aggregate_taxa) || aggregate_taxa %in% c("Phylum", "Family", "Genus", "Species")
+  )
+  if (!is.null(aggregate_taxa)) {
+    if (length(aggregate_taxa) != 1 || !(aggregate_taxa %in% names(meta_glom@featureData@data))) {
+      stop("The aggregate_taxa needs to be assigned as NULL or one of these values, Kingdom,
+      Phylum,Class,Order,Family,Genus,Species")
+    }
+  }
   if (is.null(aggregate_taxa)) {
     obj <- meta_glom
     mat <- t(MRcounts(obj, norm = norm, log = log))

@@ -12,14 +12,15 @@ NULL
 #'  linearTaxaSnp Performs linear regression analysis between taxa and SNPs and returns concordance statistics
 #'
 #' This function creates a dataframe output from the results all snps with all taxa linear regression analysis of all
-#' snps in the dataset. The result is a dataframe with P values and FDRs of all regressions.MatrixeQRL core functions
-#' are utilized to achieve this.
+#' snps in the dataset. The result is a dataframe with P values and FDRs of all regressions. MatrixeQTL core functions
+#' are utilized to achieve this. Note the main functions used are Matrix_eQTL_engine() assuming linear regression
+#' with or without a covariate file.
 #' @param microbeAbund the taxa abundance dataframe (rownames sample names and colnames taxa Genus/species/family)
 #' @param SnpFile the snp dataframe (values 0,1,2 indicating zygosity), rownames sample names and colnames snp names.
 #' @param Covariate default is NULL, hence assumed non-existent. If covariates are available they need to be formatted
 #' in the CovFile format, that is colnames are sample numbers matching samples in the microbe abundance and snp file
-#'  and row names are the co-variates names (such as sex, disease etc).
-#' @return A data frame which is a result of Linear Regression of all snp,taxa relationships,
+#' and row names are the co-variates names (such as sex, disease etc).
+#' @return A data frame which is a result of Linear Regression of all snp, taxa relationships,
 #' with P values and P value corrected values.
 #' @export
 #' @keywords taxa snp linear regression LR
@@ -30,6 +31,9 @@ NULL
 #' x <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
+  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
+  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+  stopifnot("data frame is the expected input for Covariate make sure the formatting is correct!" = is.null(Covariate) || class(Covariate) == "data.frame")
   microbeAbund_i <- t(microbeAbund)
   SnpFile_i <- t(SnpFile)
   if (is.null(Covariate)) {
@@ -130,11 +134,14 @@ linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
 #' @keywords taxa snp linear_regression plot histogram
 #' @examples
 #' data(microbeAbund)
+#' data(microbeAbund)
 #' data(SnpFile)
 #' data(CovFile)
-#' x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
+#' LinearAnalysisTaxaSNPFile <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
+#' x <- histPvalueLm(LinearAnalysisTaxaSNPFile)
 #'
 histPvalueLm <- function(LinearAnalysisTaxaSNP) {
+  stopifnot("data frame is the expected input for LinearAnalysisTaxaSNP" = class(LinearAnalysisTaxaSNP) == "data.frame")
   return(hist(as.numeric(LinearAnalysisTaxaSNP$pvalue),
     col = "grey",
     main = "Histogram of Taxa-SNP LM P-Values", xlab = "P value",
@@ -164,6 +171,9 @@ histPvalueLm <- function(LinearAnalysisTaxaSNP) {
 #' x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 qqPlotLm <- function(microbeAbund, SnpFile, Covariate = NULL) {
+  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
+  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+  stopifnot("data frame is the expected input for Covariate make sure the formatting is correct!" = is.null(Covariate) || class(Covariate) == "data.frame")
   microbeAbund_i <- t(microbeAbund)
   SnpFile_i <- t(SnpFile)
   if (is.null(Covariate)) {
