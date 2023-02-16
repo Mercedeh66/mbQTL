@@ -1,7 +1,7 @@
 Package: mbQTL
 Type: Package
 Title: mbQTL:A package for SNP-Taxa mGWAS analysis
-Version:  0.99.3
+Version:  0.99.4
 Authors@R: 
     c(person(given = "Mercedeh",
            family = "Movassagh",
@@ -36,7 +36,8 @@ Imports:
   pheatmap,
   broom,
   graphics,
-  stats
+  stats,
+  methods
 Suggests: 
     knitr,
     rmarkdown,
