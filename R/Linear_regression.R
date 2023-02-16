@@ -5,7 +5,7 @@
 #' @import stringr
 #' @import MatrixEQTL
 #' @importFrom graphics hist
-
+#' @importFrom methods is
 NULL
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
@@ -31,9 +31,9 @@ NULL
 #' x <- linearTaxaSnp(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
-  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
-  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
-  stopifnot("data frame is the expected input for Covariate make sure the formatting is correct!" = is.null(Covariate) || class(Covariate) == "data.frame")
+  stopifnot("data frame is the expected input for SnpFile" = is(SnpFile, "data.frame"))
+  stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
+  stopifnot("data frame is the expected input for Covariate make sure the formatting is correct!" = is.null(Covariate) || is(Covariate, "data.frame"))
   microbeAbund_i <- t(microbeAbund)
   SnpFile_i <- t(SnpFile)
   if (is.null(Covariate)) {
@@ -141,7 +141,7 @@ linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
 #' x <- histPvalueLm(LinearAnalysisTaxaSNPFile)
 #'
 histPvalueLm <- function(LinearAnalysisTaxaSNP) {
-  stopifnot("data frame is the expected input for LinearAnalysisTaxaSNP" = class(LinearAnalysisTaxaSNP) == "data.frame")
+  stopifnot("data frame is the expected input for LinearAnalysisTaxaSNP" = is(LinearAnalysisTaxaSNP, "data.frame"))
   return(hist(as.numeric(LinearAnalysisTaxaSNP$pvalue),
     col = "grey",
     main = "Histogram of Taxa-SNP LM P-Values", xlab = "P value",
@@ -171,9 +171,9 @@ histPvalueLm <- function(LinearAnalysisTaxaSNP) {
 #' x <- qqPlotLm(microbeAbund, SnpFile, Covariate = CovFile)
 #'
 qqPlotLm <- function(microbeAbund, SnpFile, Covariate = NULL) {
-  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
-  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
-  stopifnot("data frame is the expected input for Covariate make sure the formatting is correct!" = is.null(Covariate) || class(Covariate) == "data.frame")
+  stopifnot("data frame is the expected input for SnpFile" = is(SnpFile, "data.frame"))
+  stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
+  stopifnot("data frame is the expected input for Covariate make sure the formatting is correct!" = is.null(Covariate) || is(Covariate, "data.frame"))
   microbeAbund_i <- t(microbeAbund)
   SnpFile_i <- t(SnpFile)
   if (is.null(Covariate)) {

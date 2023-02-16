@@ -4,7 +4,7 @@
 #' @import dplyr
 #' @import stringr
 #' @importFrom stats as.formula glm p.adjust
-
+#' @importFrom methods is
 NULL
 
 if (getRversion() >= "2.15.1") {
@@ -90,8 +90,8 @@ prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 #' x <- logRegSnpsTaxa(microbeAbund, SnpFile, selectmicrobe = c("Haemophilus"))
 #'
 logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL) {
-  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
-  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+  stopifnot("data frame is the expected input for SnpFile" = is(SnpFile, "data.frame"))
+  stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
   stopifnot("The value for 'cutoff'" = is.null(cutoff) || is.numeric(cutoff))
   stopifnot("The value for 'selectmicrobe'" = is.null(cutoff) || is.character(selectmicrobe))
   # Function binarizes based on user cutoff and either select microbe or look across all
@@ -159,8 +159,8 @@ logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 logitPlotSnpTaxa <-
   function(microbeAbund, SnpFile, selectmicrobe = NULL,
            rsID, ref = NULL, alt = NULL, het = NULL, color = NULL, cutoff = NULL) {
-    stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
-    stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+    stopifnot("data frame is the expected input for SnpFile" = is(SnpFile, "data.frame"))
+    stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
     stopifnot("The value for 'rsID'" = is.null(cutoff) || is.character(rsID))
     stopifnot("The value for 'selectmicrobe'" = is.null(cutoff) || is.character(selectmicrobe))
     stopifnot("The value for 'ref'" = is.null(ref) || is.character(ref))

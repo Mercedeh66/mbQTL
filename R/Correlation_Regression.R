@@ -6,6 +6,7 @@
 #' @import pheatmap
 #' @import broom
 #' @importFrom stats cor quantile
+#' @importFrom methods is
 NULL
 
 # un-upset lintr
@@ -31,7 +32,7 @@ if (getRversion() >= "2.15.1") {
 #'
 # Function to run correlation on the taxa-taxa
 coringTaxa <- function(microbeAbund) {
-  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
+  stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
   # start parsing
   ppr <- rownames(microbeAbund)
   vapply_type <- array(data = 0.0, dim = nrow(microbeAbund))
@@ -103,8 +104,8 @@ RegSnp <- function(SnpFile, microbeAbund) {
 #'
 # function to make R2
 allToAllProduct <- function(SnpFile, microbeAbund, rsID = NULL) {
-  stopifnot("data frame is the expected input for microbeAbund" = class(microbeAbund) == "data.frame")
-  stopifnot("data frame is the expected input for SnpFile" = class(SnpFile) == "data.frame")
+  stopifnot("data frame is the expected input for SnpFile" = is(SnpFile, "data.frame"))
+  stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
   stopifnot("The variable should match the concordant varible for a specific 'rsID'" = is.null(rsID) || is.character(rsID))
   r2_long <- RegSnp(SnpFile, microbeAbund)
   # Define function apply_product
@@ -161,8 +162,8 @@ allToAllProduct <- function(SnpFile, microbeAbund, rsID = NULL) {
 #' x <- taxaSnpCor(for_all_rsids, correlationMicrobes)
 #'
 taxaSnpCor <- function(for_all_rsids, correlationMicrobes, probs = NULL) {
-  stopifnot("data frame is the expected input for for_all_rsids" = class(for_all_rsids) == "data.frame")
-  stopifnot("data frame is the expected input for correlationMicrobes" = class(correlationMicrobes) == "data.frame")
+  stopifnot("data frame is the expected input for for_all_rsids" = is(for_all_rsids, "data.frame"))
+  stopifnot("data frame is the expected input for correlationMicrobes" = is(correlationMicrobes, "data.frame"))
   stopifnot("The variable for 'probs'" = is.null(probs) || is.numeric(probs))
   invprods_and_cors <- for_all_rsids %>%
     left_join(correlationMicrobes, by = c("Genus1", "Genus2")) %>%
@@ -217,7 +218,7 @@ taxaSnpCor <- function(for_all_rsids, correlationMicrobes, probs = NULL) {
 #' x <- mbQtlCorHeatmap(final_var_long)
 #'
 mbQtlCorHeatmap <- function(final_var_long, labels_col = NULL, ...) {
-  stopifnot("data frame is the expected input for final_var_long" = class(final_var_long) == "data.frame")
+  stopifnot("data frame is the expected input for final_var_long" = is(final_var_long, "data.frame"))
   stopifnot("TRUE/FALSE for label appearance 'labels_col'" = is.null(labels_col) || is.logical(labels_col))
   final_var_long$Combined_Genus <- paste(final_var_long$Genus1, final_var_long$Genus2, sep = "_")
   final_var2 <- final_var_long %>% select(rsID, Combined_Genus, rho_xy)

@@ -3,6 +3,7 @@
 #' @import dplyr
 #' @import stringr
 #' @import metagenomeSeq
+#' @importFrom methods is
 NULL
 
 #' ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
@@ -23,7 +24,7 @@ NULL
 #' data(metagenomeSeqObj)
 #' x <- metagenomeSeqToMbqtl(metagenomeSeqObj, norm = TRUE, log = TRUE, aggregate_taxa = NULL)
 metagenomeSeqToMbqtl <- function(meta_glom, norm, log, aggregate_taxa = NULL) {
-  stopifnot("MRexperiment object expected for 'meta_glom'" = class(meta_glom) == "MRexperiment")
+  stopifnot("MRexperiment object expected for 'meta_glom'" = is(meta_glom, "MRexperiment"))
   stopifnot("TRUE/FALSE expected for 'norm'" = is.logical(norm))
   stopifnot("TRUE/FALSE expected for 'log'" = is.logical(log))
   stopifnot(
