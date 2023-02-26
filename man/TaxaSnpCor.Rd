@@ -2,17 +2,17 @@
 % Please edit documentation in R/Correlation_Regression.R
 \name{taxaSnpCor}
 \alias{taxaSnpCor}
-\title{taxaSnpCor for estimation of the rho value between snp, taxa correlations across datasets}
+\title{\code{taxaSnpCor} for estimation of the rho value between snp, taxa correlations across datasets}
 \usage{
 taxaSnpCor(for_all_rsids, correlationMicrobes, probs = NULL)
 }
 \arguments{
 \item{for_all_rsids}{A dataframe result of correlation analysis between the snps and taxa dataframe,
-an output of allToAllProduct() function.}
+an output of \code{allToAllProduct()} function.}
 
-\item{correlationMicrobes}{A dataframe of correlation between coringTaxa() function.}
+\item{correlationMicrobes}{A dataframe of correlation between \code{coringTaxa()} function.}
 
-\item{probs}{Default is NULL if other that all rho values are wanted the value can be subseted using c(x,y).}
+\item{probs}{Default is NULL if other that all rho values are wanted the value can be subseted using c(\code{x},\code{y}).}
 }
 \value{
 A data frame of correlations between taxa

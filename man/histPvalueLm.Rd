@@ -8,7 +8,7 @@ This function creates a histogram object of all SNPs with all taxa Linear regres
 histPvalueLm(LinearAnalysisTaxaSNP)
 }
 \arguments{
-\item{LinearAnalysisTaxaSNP}{the data frame result created from the linearTaxaSnp() function.}
+\item{LinearAnalysisTaxaSNP}{the data frame result created from the \code{linearTaxaSnp()} function.}
 }
 \value{
 A histogram object of p values observed from taxa and SNP Linear Regression analysis.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Correlation_Regression.R
 \name{coringTaxa}
 \alias{coringTaxa}
-\title{coringTaxa creates correlation dataframe for taxa}
+\title{\code{coringTaxa} creates correlation dataframe for taxa}
 \usage{
 coringTaxa(microbeAbund)
 }

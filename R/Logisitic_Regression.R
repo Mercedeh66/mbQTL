@@ -14,7 +14,7 @@ if (getRversion() >= "2.15.1") {
 }
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  binarizeMicrobe binarizes microbe abundace file based on user's cutoff
+#'  `binarizeMicrobe` binarizes microbe abundace file based on user's cutoff
 #'
 #' This function creates a dataframe output produces a formatted dataframe prepared.
 #' @param microbeAbund the taxa abundance dataframe (rownames sample names and colnames taxa Genus/species/family)
@@ -43,7 +43,7 @@ binarizeMicrobe <- function(microbeAbund, cutoff = NULL, selectmicrobe = NULL) {
 }
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  prepareCorData prpares and joins snp-taxa and taxa-taxa correlation file.
+#'  `prepareCorData` prpares and joins snp-taxa and taxa-taxa correlation file.
 #'
 #' This function creates a dataframe output produces a formatted dataframe prepared.
 #' @param microbeAbund the taxa abundance dataframe (rownames sample names and colnames taxa Genus/species/family)
@@ -70,7 +70,7 @@ prepareCorData <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  logRegSnpsTaxa Performs logistic regression analysis between taxa and SNPs and returns concordance statistics
+#'  `logRegSnpsTaxa` Performs logistic regression analysis between taxa and SNPs and returns concordance statistics
 #'
 #' This function creates a dataframe output from the results of either a unique taxa and all snps or all taxa and
 #' all snps in the dataset. The result is a dataframe with P values and FDRs of all regressions.

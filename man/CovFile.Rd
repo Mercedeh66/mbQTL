@@ -3,22 +3,10 @@
 \docType{data}
 \name{CovFile}
 \alias{CovFile}
-\title{This is data to be included in my package}
+\title{\code{mbQTL} "CovFile"}
 \description{
-This is data to be included in my package
+The "CovFile" is the covariate file for linear regression option of taxa and snp association.
+The covariance file is generated randomly by assigning sex and site of collection to
+the samples.) rownames are covariate and colnames samples.
 }
-\keyword{This}
-\keyword{and}
-\keyword{association}
-\keyword{covariate}
 \keyword{data}
-\keyword{file}
-\keyword{for}
-\keyword{is}
-\keyword{linear}
-\keyword{of}
-\keyword{option}
-\keyword{regression}
-\keyword{snp}
-\keyword{taxa}
-\keyword{the}

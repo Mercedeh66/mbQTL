@@ -18,7 +18,7 @@ if (getRversion() >= "2.15.1") {
 }
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  coringTaxa creates correlation dataframe for taxa
+#'  `coringTaxa` creates correlation dataframe for taxa
 #'
 #' This function creates an output correlation data frame for all microbial taxa (or other organisms such as
 #' viral or parasitic taxa)
@@ -57,7 +57,7 @@ coringTaxa <- function(microbeAbund) {
 ## SNPs
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  RegSnp creates a dataframe of parsed long snp files
+#'  `RegSnp` creates a dataframe of parsed long snp files
 #'
 #' This internal function takes the orginal snp dataframe and retruns a long parsed snp dataframe
 #' @param SnpFile the snp file (rownames is sample number and colnames is the snps)
@@ -88,7 +88,7 @@ RegSnp <- function(SnpFile, microbeAbund) {
 }
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  allToAllProduct creates a dataframe of snp and taxa correlations
+#'  `allToAllProduct` creates a dataframe of snp and taxa correlations
 #'
 #' This internal function takes the original snp dataframe and returns a long parsed snp dataframe
 #' @param SnpFile the snp file (rownames is sample number and colnames is the snps)
@@ -143,13 +143,13 @@ allToAllProduct <- function(SnpFile, microbeAbund, rsID = NULL) {
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  taxaSnpCor for estimation of the rho value between snp, taxa correlations across datasets
+#'  `taxaSnpCor` for estimation of the rho value between snp, taxa correlations across datasets
 #'
 #' This function produces a log heatmap +1 of the correlation rho values across snp, taxa dataframe.
 #' @param for_all_rsids A dataframe result of correlation analysis between the snps and taxa dataframe,
-#'  an output of allToAllProduct() function.
-#' @param correlationMicrobes A dataframe of correlation between coringTaxa() function.
-#' @param probs Default is NULL if other that all rho values are wanted the value can be subseted using c(x,y).
+#'  an output of `allToAllProduct()` function.
+#' @param correlationMicrobes A dataframe of correlation between `coringTaxa()` function.
+#' @param probs Default is NULL if other that all rho values are wanted the value can be subseted using c(`x`,`y`).
 #' @return A data frame of correlations between taxa
 #' @export
 #' @keywords rho estimation
@@ -198,10 +198,10 @@ taxaSnpCor <- function(for_all_rsids, correlationMicrobes, probs = NULL) {
 
 
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
-#'  mbQtlCorHeatmap for making heatmap for snp, taxa rho values
+#'  `mbQtlCorHeatmap` for making heatmap for snp, taxa rho values
 #'
 #' This function produces a log heatmap +1 of the correlation rho values across snp, taxa datasets
-#' @param final_var_long the long data frame of rho values created by the taxaSnpCor() function.
+#' @param final_var_long the long data frame of rho values created by the `taxaSnpCor()` function.
 #' @param labels_col set to NULL ass default if TRUE, labels will appear on the heatmap.
 #' @param ... all other parameters for pheatmap.
 #' @return A data frame of correlations between taxa

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Logisitic_Regression.R
 \name{prepareCorData}
 \alias{prepareCorData}
-\title{prepareCorData prpares and joins snp-taxa and taxa-taxa correlation file.}
+\title{\code{prepareCorData} prpares and joins snp-taxa and taxa-taxa correlation file.}
 \usage{
 prepareCorData(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Logisitic_Regression.R
 \name{logRegSnpsTaxa}
 \alias{logRegSnpsTaxa}
-\title{logRegSnpsTaxa Performs logistic regression analysis between taxa and SNPs and returns concordance statistics}
+\title{\code{logRegSnpsTaxa} Performs logistic regression analysis between taxa and SNPs and returns concordance statistics}
 \usage{
 logRegSnpsTaxa(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe = NULL)
 }

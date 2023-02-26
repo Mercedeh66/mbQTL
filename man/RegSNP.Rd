@@ -2,7 +2,7 @@
 % Please edit documentation in R/Correlation_Regression.R
 \name{RegSnp}
 \alias{RegSnp}
-\title{RegSnp creates a dataframe of parsed long snp files}
+\title{\code{RegSnp} creates a dataframe of parsed long snp files}
 \usage{
 RegSnp(SnpFile, microbeAbund)
 }

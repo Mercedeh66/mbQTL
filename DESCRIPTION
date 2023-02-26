@@ -1,7 +1,7 @@
 Package: mbQTL
 Type: Package
-Title: mbQTL:A package for SNP-Taxa mGWAS analysis
-Version:  0.99.4
+Title: mbQTL: A package for SNP-Taxa mGWAS analysis
+Version:  0.99.5
 Authors@R: 
     c(person(given = "Mercedeh",
            family = "Movassagh",
@@ -43,3 +43,5 @@ Suggests:
     rmarkdown,
     BiocStyle
 VignetteBuilder: knitr
+URL:"https://github.com/Mercedeh66/mbQTL"
+BugReport:"https://github.com/Mercedeh66/mbQTL/issues"

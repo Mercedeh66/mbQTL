@@ -3,22 +3,13 @@
 \docType{data}
 \name{microbeAbund}
 \alias{microbeAbund}
-\title{This is data to be included in my package}
+\title{\code{mbQTL} "microbiomeAbund" File}
 \description{
-This is data to be included in my package
+This is the microbial Abudnance file generated from 16s it is either this file or
+the "metaGenomeSeqObj".The "microbiomeAbund" file is a randomly generated file
+format for total microbe presence (number of reads)(parasite/viral transcripts)
+for specific species.This could be generated from select taxa results from
+\code{biom()} or \code{MRexperiment} objects as long as the samples are colnames and taxa
+are rownames.
 }
-\keyword{16s}
-\keyword{Abudnance}
-\keyword{This}
 \keyword{data}
-\keyword{either}
-\keyword{file}
-\keyword{from}
-\keyword{generated}
-\keyword{is}
-\keyword{it}
-\keyword{metaGenomeSeqObj}
-\keyword{microbial}
-\keyword{or}
-\keyword{the}
-\keyword{this}

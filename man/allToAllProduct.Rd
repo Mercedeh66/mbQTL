@@ -2,7 +2,7 @@
 % Please edit documentation in R/Correlation_Regression.R
 \name{allToAllProduct}
 \alias{allToAllProduct}
-\title{allToAllProduct creates a dataframe of snp and taxa correlations}
+\title{\code{allToAllProduct} creates a dataframe of snp and taxa correlations}
 \usage{
 allToAllProduct(SnpFile, microbeAbund, rsID = NULL)
 }

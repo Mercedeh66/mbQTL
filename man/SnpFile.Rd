@@ -3,18 +3,13 @@
 \docType{data}
 \name{SnpFile}
 \alias{SnpFile}
-\title{This is data to be included in my package}
+\title{\code{mbQTL} "SnpFile"}
 \description{
-This is data to be included in my package
+The "SnpFile" is randomly generated from GATK (Van der Auwera GA & O'Connor BD. (2020).
+Genomics in the Cloud: Using Docker, GATK, and WDL in Terra (1st Edition).
+O'Reilly Media) snp calls followed by plink (Purcell S, et al. (2007) PLINK: a
+toolset for whole-genome association and population-based linkage analysis. American
+Journal of Human Genetics) processing and it needs to be in (0,1,2) format representing
+the zygosity of the snps.
 }
-\keyword{/or}
-\keyword{Snp}
-\keyword{This}
 \keyword{data}
-\keyword{file}
-\keyword{from}
-\keyword{genome}
-\keyword{host}
-\keyword{is}
-\keyword{pathogen}
-\keyword{the}

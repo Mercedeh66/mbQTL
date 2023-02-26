@@ -7,9 +7,9 @@ microbeAbund <- read.table("data-raw/Taxa_table_MVP_cor.txt", sep = "\t", row.na
 #PLINK: a toolset for whole-genome association and population-based linkage analysis. American Journal of Human Genetics)
 # processing and it needs to be in (0,1,2) format representing the zygosity of the snps.
 SnpFile <- read.table("data-raw/SNP_table_MVP_cor.txt", sep = "\t", row.names = 1, header = TRUE)
-#The covariance file is generated randomly by assinging sex and site of collection to the samples.)
+#The covariance file is generated randomly by assigning sex and site of collection to the samples.)
 #rownames are covariate and colnames samples.
 CovFile <- read.table("data-raw/covariates.txt", sep = "\t", row.names = 1, header = TRUE)
-#MetagenomSeqObj is an MRexperiment obj format of the microbeAbund file.
+#MetagenomSeqObj is an `MRexperiment` object format of the "microbeAbund" file.
 metagenomeSeqObj <- readRDS("data-raw/metagenomeSeqReads.RDS")
 usethis::use_data(microbeAbund, SnpFile, CovFile, metagenomeSeqObj, overwrite = TRUE)

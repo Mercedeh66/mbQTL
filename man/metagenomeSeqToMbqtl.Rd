@@ -10,7 +10,7 @@ metagenomeSeqToMbqtl Converts metagenomeSeq obj to compatible taxa dataframe
 metagenomeSeqToMbqtl(meta_glom, norm, log, aggregate_taxa = NULL)
 }
 \arguments{
-\item{meta_glom}{MRexperiement class obj from metagenomeSeq package.}
+\item{meta_glom}{\code{MRexperiement} class obj from \code{metagenomeSeq} package.}
 
 \item{norm}{A logical indicating whether or not to return normalized counts.}
 
@@ -21,11 +21,11 @@ however, if the user chooses to aggregate on the phyla/family/Genus or Species
 level before normalization they have the option.}
 }
 \value{
-A data frame of normalized/not normalized counts compatible with mbQTL.
+A data frame of normalized/not normalized counts compatible with \code{mbQTL}.
 }
 \description{
-This function takes and MRexperiement class object transforms it and makes the result dataframe compatible
-with mbQTL taxa input file
+This function takes and \code{MRexperiement} class object transforms it and makes the result dataframe compatible
+with \code{mbQTL} taxa input file
 }
 \examples{
 data(metagenomeSeqObj)

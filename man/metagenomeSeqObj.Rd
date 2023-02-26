@@ -3,19 +3,12 @@
 \docType{data}
 \name{metagenomeSeqObj}
 \alias{metagenomeSeqObj}
-\title{This is data to be included in my package}
+\title{\code{mbQTL} "metagenomeSeqObj"
+
+"MetagenomSeqObj" is an \code{MRexperiment} object format of the "microbeAbund" file.}
 \description{
-This is data to be included in my package
+\code{mbQTL} "metagenomeSeqObj"
+
+"MetagenomSeqObj" is an \code{MRexperiment} object format of the "microbeAbund" file.
 }
-\keyword{MRexperiment}
-\keyword{RDS}
-\keyword{This}
 \keyword{data}
-\keyword{either}
-\keyword{file}
-\keyword{is}
-\keyword{it}
-\keyword{microbeAbund}
-\keyword{or}
-\keyword{the}
-\keyword{this}

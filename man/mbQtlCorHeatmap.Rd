@@ -2,12 +2,12 @@
 % Please edit documentation in R/Correlation_Regression.R
 \name{mbQtlCorHeatmap}
 \alias{mbQtlCorHeatmap}
-\title{mbQtlCorHeatmap for making heatmap for snp, taxa rho values}
+\title{\code{mbQtlCorHeatmap} for making heatmap for snp, taxa rho values}
 \usage{
 mbQtlCorHeatmap(final_var_long, labels_col = NULL, ...)
 }
 \arguments{
-\item{final_var_long}{the long data frame of rho values created by the taxaSnpCor() function.}
+\item{final_var_long}{the long data frame of rho values created by the \code{taxaSnpCor()} function.}
 
 \item{labels_col}{set to NULL ass default if TRUE, labels will appear on the heatmap.}
 

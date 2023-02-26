@@ -128,7 +128,7 @@ linearTaxaSnp <- function(microbeAbund, SnpFile, Covariate = NULL) {
 ## Written by Mercedeh Movassagh <mercedeh@ds.dfci.harvard.edu>, January 2023
 #'  histPvalueLm a histogram of Taxa and SNP linear regression analysis.
 #'  This function creates a histogram object of all SNPs with all taxa Linear regression analysis p values.
-#' @param LinearAnalysisTaxaSNP the data frame result created from the linearTaxaSnp() function.
+#' @param LinearAnalysisTaxaSNP the data frame result created from the `linearTaxaSnp()` function.
 #' @return A histogram object of p values observed from taxa and SNP Linear Regression analysis.
 #' @export
 #' @keywords taxa snp linear_regression plot histogram

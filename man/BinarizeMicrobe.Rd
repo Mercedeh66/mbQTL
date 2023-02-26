@@ -2,7 +2,7 @@
 % Please edit documentation in R/Logisitic_Regression.R
 \name{binarizeMicrobe}
 \alias{binarizeMicrobe}
-\title{binarizeMicrobe binarizes microbe abundace file based on user's cutoff}
+\title{\code{binarizeMicrobe} binarizes microbe abundace file based on user's cutoff}
 \usage{
 binarizeMicrobe(microbeAbund, cutoff = NULL, selectmicrobe = NULL)
 }
