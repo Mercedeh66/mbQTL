@@ -1,7 +1,7 @@
 Package: mbQTL
 Type: Package
 Title: mbQTL: A package for SNP-Taxa mGWAS analysis
-Version: 1.0.0
+Version: 1.1.0
 Authors@R: 
     c(person(given = "Mercedeh",
            family = "Movassagh",
