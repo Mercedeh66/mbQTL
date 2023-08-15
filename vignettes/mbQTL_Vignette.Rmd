@@ -161,7 +161,7 @@ three different models of which we employ two, a) assumption of simple linear
 regression for each gene and SNV pair The first approach is a very similar approach
 to that of the expression quantitative trait loci association (eQTL). b) regression
 model with covariates (Shabalin, 2012). We have also created a larger simulated 
-data set which can be accessed and downloaded from ... .
+data set which can be accessed and downloaded from Movassagh, Mercedeh. (2023). mbQTL. https://doi.org/10.18129/B9.bioc.mbQTL.
 
 
 ```{r eval=TRUE, echo=TRUE}
