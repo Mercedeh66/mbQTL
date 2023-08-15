@@ -73,6 +73,7 @@ knitr::opts_chunk$set(
 )
 library(mbQTL)
 library(tidyr)
+
 data("SnpFile")
 data("microbeAbund")
 data("CovFile")
@@ -149,7 +150,7 @@ class(compatible_metagenome_seq)
 ```
 
 
-# Part A. Lineare regression
+# Part A. Linear regression
 
 Linear regression analysis to identify significant association between taxa and 
 SNPs across large sample sized. P values FDRs, Pvalue histogram plots and QQ-plots
@@ -159,7 +160,8 @@ heterozygous and alternate genotype). `MatrixeQTL` makes its estimations assumin
 three different models of which we employ two, a) assumption of simple linear
 regression for each gene and SNV pair The first approach is a very similar approach
 to that of the expression quantitative trait loci association (eQTL). b) regression
-model with covariates (Shabalin, 2012).
+model with covariates (Shabalin, 2012). We have also created a larger simulated 
+data set which can be accessed and downloaded from ... .
 
 
 ```{r eval=TRUE, echo=TRUE}
@@ -172,7 +174,17 @@ model with covariates (Shabalin, 2012).
 # microbial abundance file (rownames taxa, colnames sample names) and
 # SnpFile (rownames snps and colnames sample names) with optional "CovFile"
 # (rownames covariates and colnames sample names) ( note all samples should
-# be concordant in the three datasets).
+# be concordant in the three datasets). Note, the data can be imported as
+# an R object using either upload() or if RDS file, readRDS(). If the the
+# the data is a data frame in text format it can be uploaded using read.table(),
+# in a tab separated manner, if excel, the user can use the read_excel() 
+# function from readxl package. Alternatively, read.csv() can be used for
+# import of a csv file.
+
+#Check out file formats compatible with mbQTL.
+head(microbeAbund)
+head(SnpFile)
+head(CovFile)
 
 LinearAnalysisTaxaSNP <- linearTaxaSnp(microbeAbund,
   SnpFile,

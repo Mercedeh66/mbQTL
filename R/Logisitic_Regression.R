@@ -93,7 +93,7 @@ logRegSnpsTaxa <- function(microbeAbund, SnpFile, cutoff = NULL, selectmicrobe =
   stopifnot("data frame is the expected input for SnpFile" = is(SnpFile, "data.frame"))
   stopifnot("data frame is the expected input for microbeAbund" = is(microbeAbund, "data.frame"))
   stopifnot("The value for 'cutoff'" = is.null(cutoff) || is.numeric(cutoff))
-  stopifnot("The value for 'selectmicrobe'" = is.null(cutoff) || is.character(selectmicrobe))
+  stopifnot("The value for 'selectmicrobe'" = is.null(selectmicrobe) || is.character(selectmicrobe))
   # Function binarizes based on user cutoff and either select microbe or look across all
   final_DF_Logit <- prepareCorData(microbeAbund, SnpFile,
     cutoff = cutoff,
