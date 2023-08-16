@@ -117,7 +117,20 @@ number and are appropriately formatted to avoid errors in your analysis.
 
 ## Import data
 mbQTL accepts data in dataframe, `MRexperiment` objects or table formats. The files 
-are accessible when the `mbQTL` library is loaded. 
+are accessible when the `mbQTL` library is loaded. We have also created a larger simulated 
+data set of 500 SNPs and 500 pathogens for 500 patients which can be accessed and 
+downloaded from https://doi.org/10.18129/B9.bioc.mbQTL.
+The whole data set can be run with an average memory of 90MB in less than 2 
+minutes for all models.
+The input files are microbial abundance file (rownames taxa, colnames sample 
+names) and SnpFile (rownames snps and colnames sample names) with optional 
+"CovFile"(rownames covariates and colnames sample names) ( note all samples should
+be concordant in the three data sets). Note, the data can be imported as
+an R object using either upload() or if RDS file, readRDS(). If the the
+the data is a data frame in text format it can be uploaded using read.table(),
+in a tab separated manner, if excel, the user can use the read_excel() 
+function from readxl package. Alternatively, read.csv() can be used for
+import of a csv file.
 
 ```{r eval=TRUE, echo=TRUE}
 # microbial count file
@@ -126,7 +139,15 @@ are accessible when the `mbQTL` library is loaded.
 # SnpFile
 # Covariance file
 # CovFile
+
+#Check out file formats compatible with mbQTL files.
+
+#head(microbeAbund)
+#head(SnpFile)
+#head(CovFile)
+
 metagenomeSeqObj
+
 ```
 
 
@@ -147,6 +168,7 @@ compatible_metagenome_seq <- metagenomeSeqToMbqtl(metagenomeSeqObj,
 # Check for the class of compatible_metagenome_seq
 
 class(compatible_metagenome_seq)
+
 ```
 
 
@@ -160,8 +182,7 @@ heterozygous and alternate genotype). `MatrixeQTL` makes its estimations assumin
 three different models of which we employ two, a) assumption of simple linear
 regression for each gene and SNV pair The first approach is a very similar approach
 to that of the expression quantitative trait loci association (eQTL). b) regression
-model with covariates (Shabalin, 2012). We have also created a larger simulated 
-data set which can be accessed and downloaded from Movassagh, Mercedeh. (2023). mbQTL. https://doi.org/10.18129/B9.bioc.mbQTL.
+model with covariates (Shabalin, 2012).
 
 
 ```{r eval=TRUE, echo=TRUE}
@@ -170,21 +191,7 @@ data set which can be accessed and downloaded from Movassagh, Mercedeh. (2023). 
 # samples and produce a data frame of results.(covariate file is
 # optional but highly recommended to avoid results which might be
 # prone to batch effects and obtaining optimal biological relevance
-# for finding snp - taxa relationships.) The input files are 
-# microbial abundance file (rownames taxa, colnames sample names) and
-# SnpFile (rownames snps and colnames sample names) with optional "CovFile"
-# (rownames covariates and colnames sample names) ( note all samples should
-# be concordant in the three datasets). Note, the data can be imported as
-# an R object using either upload() or if RDS file, readRDS(). If the the
-# the data is a data frame in text format it can be uploaded using read.table(),
-# in a tab separated manner, if excel, the user can use the read_excel() 
-# function from readxl package. Alternatively, read.csv() can be used for
-# import of a csv file.
-
-#Check out file formats compatible with mbQTL.
-head(microbeAbund)
-head(SnpFile)
-head(CovFile)
+# for finding snp - taxa relationships.) 
 
 LinearAnalysisTaxaSNP <- linearTaxaSnp(microbeAbund,
   SnpFile,
