@@ -184,6 +184,8 @@ regression for each gene and SNV pair The first approach is a very similar appro
 to that of the expression quantitative trait loci association (eQTL). b) regression
 model with covariates (Shabalin, 2012).
 
+Note: The main assumption behind this model is, Abundance of taxa association with
+presence of SNV/SNP across cohorts of samples.
 
 ```{r eval=TRUE, echo=TRUE}
 
@@ -226,6 +228,9 @@ next we measure goodness of fits R2 and ask to what extent the variance in one t
 explains the variance in a SNP,  and finally we find clusters of taxa associated with
 various SNPs across the dataset by evaluating and controlling for both these measures
 together and finally estimating rho value.
+
+Note: The main idea behind this approach estimating strength of a correlation 
+between SNP-Taxa and Taxa-Taxa ( communities of bacteria/organisms).
 
 
 ```{r eval=TRUE, echo=TRUE}
@@ -275,7 +280,14 @@ mbQtlCorHeatmap(taxa_SNP_Cor_lim,
 
 
 # Part C. Logistic Regression analysis
-SNPs and then Genus/species (categorical(presence/absence)) as expression. For this we need to binarize out taxa abundance file based on a cutoff to a zero or one or presence or absence format. We assume a presence and absence binary/categorical relationship between every taxa and SNP pair and use a logistic regression model to identify significance taxa-SNP relationships.
+SNPs and then Genus/species (categorical(presence/absence)) as expression.
+For this we need to binarize out taxa abundance file based on a cutoff to a 
+zero or one or presence or absence format. We assume a presence and absence 
+binary/categorical relationship between every taxa and SNP pair and use a 
+logistic regression model to identify significance taxa-SNP relationships.
+
+Note: The main hypothesis behind this approach is there an association between
+presence of taxa (present/absent) and SNV/SNP.
 
 ```{r eval=TRUE, echo=TRUE}
 
